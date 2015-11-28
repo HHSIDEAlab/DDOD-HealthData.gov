@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+######################################################################
+##  Save periodic snapshots of files for later analysis
+######################################################################
+
+# Set destination for output files
+DATA_DIR="./snapshots/"
+LOG_FILE=$DATA_DIR"cron_curl_error.out"
+
+#--- Take snapshot of GitHub issues ---
+DATA_JSON_URL="https://api.github.com/repos/demand-driven-open-data/ddod-intake/issues?state=all&per_page=10000"
+DATA_JSON_OUT=$DATA_DIR"ddod-intake-issues-$(date '+%Y%m%d')-data.json"
+echo "Saving "$DATA_JSON_URL" to "$DATA_JSON_OUT
+/usr/bin/curl  -s -o $DATA_JSON_OUT "$DATA_JSON_URL"  2> $LOG_FILE
+
+#--- Take snapshot of HealthData.gov ---
+DATA_JSON_URL="http://www.healthdata.gov/data.json"
+DATA_JSON_URL="http://healthdatagov.prod.acquia-sites.com/data.json"
+DATA_JSON_OUT=$DATA_DIR"HealthData.gov-$(date '+%Y%m%d')-data.json"
+echo "Saving "$DATA_JSON_URL" to "$DATA_JSON_OUT
+/usr/bin/curl  -s -o $DATA_JSON_OUT "$DATA_JSON_URL"  2> $LOG_FILE
+
+#--- Take snapshot of data.gov ---
+DATA_JSON_URL="http://open.gsa.gov/data.json"
+DATA_JSON_OUT=$DATA_DIR"Data.gov-$(date '+%Y%m%d')-data.json"
+echo "Saving "$DATA_JSON_URL" to "$DATA_JSON_OUT
+/usr/bin/curl  -s -o $DATA_JSON_OUT "$DATA_JSON_URL"  2> $LOG_FILE

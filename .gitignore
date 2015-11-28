@@ -59,3 +59,6 @@ target/
 
 # Swap files
 *.swp
+
+# Specific to ddod-hd.gov project
+snapshots/
