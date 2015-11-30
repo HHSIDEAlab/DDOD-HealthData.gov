@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 ######################
 ##  2015-11-25  Created by David Portnoy
 ######################
@@ -11,10 +12,10 @@ import pandas as pd
 from numpy import random  # For random
 
 # For charting
-from bokeh.charts import Bar, output_file, reset_output, save, show
+from bokeh.charts import Bar, output_file, reset_output, output_server, save, show
 #from bokeh.plotting import output_file, reset_output, save, show
 #from bokeh.plotting import figure
-from bokeh.plotting import reset_output
+#from bokeh.plotting import reset_output
 from bokeh.palettes import brewer
 from bokeh.sampledata.autompg import autompg as df
 from bokeh.io import output_notebook  # For interactive within iPython notebook only
@@ -27,15 +28,22 @@ import getopt, sys  # For command line args
 OPTS = [("h","help"), ("o:","output="), ("u","url="), ("v", "verbose")]
 
 
+#--- Global variables ---
+source_url = ''
+
+
+
+#==============================================================================
 def usage():
     print("This script generates a graph from GitHub issues")
     print("  Params: ")
     print(str(OPTS).replace('), (','\n').replace(', ',' or ').strip('[]()'))
 
 
-def process_params():
+#==============================================================================
+def process_params(sys_argv):
     try:
-        opts, args = getopt.getopt(sys.argv[1:], 
+        opts, args = getopt.getopt(sys_argv, 
                                    "".join([opt[0] for opt in OPTS]),
                                     [opt[1] for opt in OPTS]
                                   )
@@ -45,7 +53,6 @@ def process_params():
         getopt.usage()
         sys.exit(2)
     #--- Clear params vars ---
-    output_file = None
     verbose = False
     for o, a in opts:
         if o == "-v":
@@ -54,30 +61,51 @@ def process_params():
             usage()
             sys.exit()
         elif o in ("-o", "--output"):
-            output_file = a
+            global output_filename
+            output_filename = a
+        elif u in ("-u", "--url"):
+            global source_url
+            source_url = u
         else:
             assert False, "unhandled option"
     # ...
 
 
 
+#==============================================================================
+def read_data(source_url="", verbose=False, read_limit=0):
 
-def read_data():
+    import os
+    import glob
 
-    #sURL = 'https://api.github.com/events'
-    issues_url = "https://api.github.com/repos/demand-driven-open-data/ddod-intake/issues?state=all&per_page=10000"
-    issues_get = requests.get(issues_url)
-    # print(issues_get.headers)
+    DEFAULT_URL = "https://api.github.com/repos/demand-driven-open-data/ddod-intake/issues?state=all&per_page=10000"
+    GITHUB_INTAKE_PATTERN = 'snapshots/*intake*.json'
 
 
-    # convert to JSON
-    issues_string = issues_get.text
-    issues_json = json.loads(issues_string)
+    # A specified url overrides everything
+    if source_url:
+        issues_get = requests.get(source_url)
+        issues_string = issues_get.text
+        issues_json = json.loads(issues_string)
+    # If url not specified, get last file saved.  If no file found, load from default URL
+    else:
+        newest_file = max(glob.iglob(GITHUB_INTAKE_PATTERN), key = os.path.getctime)
+        if newest_file:
+            # Load the file
+            if verbose: print("Load the file")
+            with open(newest_file) as json_data_file:
+                issues_json = json.load(json_data_file)
+                json_data_file.close()
+        else:
+            # Load from default URL
+            source_url = DEFAULT_URL
+            issues_get = requests.get(source_url)
+            issues_string = issues_get.text
+            issues_json = json.loads(issues_string)
 
 
 
     # Define constants
-    LIST_LIMIT = 0  # For testing only
     IGNORE_LABEL = "Not Use Case"  # Ignore entries not use cases
     TABLE_COLUMNS = ['use_case_id','title','value_delivered','status']
     TABLE_COLUMNS_MAP = [{'use_case_id':'number'},
@@ -103,7 +131,7 @@ def read_data():
         issue_row.update({'title':item['title']})
         issue_row.update({'status':item['state']})
 
-# Create list of labels
+        # Create list of labels
         for label in item["labels"]:
             if VALUE_LABEL in label["name"]:
 
@@ -111,58 +139,70 @@ def read_data():
                           label["name"].replace(VALUE_LABEL,'')
                           .replace(':','-').strip()})
                 
-                if LIST_LIMIT: print('Appending: ',issue_row)
+                if read_limit: print('Appending: ',issue_row)
                 issues_table.append(dict(issue_row))
             
         # Limit for testing
-        if LIST_LIMIT:
-            if index+1 >= LIST_LIMIT:
+        if read_limit:
+            if index+1 >= read_limit:
                 break
         
-    if LIST_LIMIT: print(issues_table)
+    if read_limit: print(issues_table)
 
 
     # Create dataframe for Bokeh
     issues_df = pd.DataFrame(data=issues_table, columns=TABLE_COLUMNS)
+    return issues_df
 
 
-def output_chart():
+
+#==============================================================================
+def output_chart(issues_df,output_mode='static'):
+    import datetime
+    import bokeh
+
     ISSUES_TITLE = "Number of Use Cases by Value delivered"
-    ISSUES_FILE  = "value_delivered.html"
+    ISSUES_FILE  = "~/htdocs/ddod_charts/value_delivered.html"
     INTERACTIVE_MODE = False
 
-
+    # Add timestamp to title
+    
     issues_chart = Bar(issues_df, label='value_delivered', 
                values='status', agg='count', stack='status',
-               title=ISSUES_TITLE, 
+               title=ISSUES_TITLE+" (Updated "+datetime.datetime.now().strftime('%m/%d/%Y %H:%M')+")", 
                xlabel="Value Delivered",ylabel="Number of Use Cases",
                legend='top_right',
                color=brewer["GnBu"][3]
               )
 
-
     #--- Configure output ---
     reset_output()
 
-    if INTERACTIVE_MODE:
-        output_notebook()   # Show inline
-        show(issues_chart)
-    else:
+    if output_mode == 'static':
         # Static file
-        output_file('value_delivered.html', title=ISSUES_TITLE, 
+        output_file(ISSUES_FILE, title=ISSUES_TITLE, 
             autosave=True, mode='inline', 
             root_dir=None
                )   # Generate file
         save(issues_chart,filename=ISSUES_FILE)
+    elif output_mode == 'notebook':
+        output_notebook()   # Show inline
+        show(issues_chart)
+    else:
+        # Server
+        session = bokeh.session.Session(root_url='http://172.31.52.103:5006/', load_from_config=False)
+        output_server("ddod_chart", session=session)
+        show(issues_chart)
 
 
+#==============================================================================
+def main(sys_argv):
+    process_params(sys_argv)
+    issues_df = read_data(source_url)
+    output_chart(issues_df)
 
-def main():
-    process_params()
-    read_data()
-    output_chart()
 
-
+#==============================================================================
 if __name__ == "__main__":
-    main()
+    main(sys.argv[1:])
 
