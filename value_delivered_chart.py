@@ -167,6 +167,8 @@ HTML_BODY_MARGIN = 8
 def output_chart(issues_df,output_mode='static'):
     import datetime
     import bokeh
+    from bokeh.models import HoverTool
+
 
     # Add timestamp to title
     
@@ -175,6 +177,7 @@ def output_chart(issues_df,output_mode='static'):
                title=ISSUES_TITLE+" (Updated "+datetime.datetime.now().strftime('%m/%d/%Y')+")", 
                xlabel="Value Delivered",ylabel="Number of Use Cases",
                legend='top_right',
+               tools='hover',
                color=brewer["GnBu"][3]
               )
 
@@ -182,6 +185,9 @@ def output_chart(issues_df,output_mode='static'):
     issues_chart.plot_height = DESTINATION_FRAME_HEIGHT - (HTML_BODY_MARGIN * 2)
     issues_chart.logo = None
     issues_chart.toolbar_location = None
+
+    hover = issues_chart.select(dict(type=HoverTool))
+    hover.tooltips = [ ("Value Delivered", "$x")]
 
 
     #--- Configure output ---
