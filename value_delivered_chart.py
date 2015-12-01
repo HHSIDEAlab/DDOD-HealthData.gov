@@ -156,10 +156,12 @@ def read_data(source_url="", verbose=False, read_limit=0):
 
 
 ISSUES_TITLE = "Number of Use Cases by Value delivered"
-ISSUES_FILE  = "~/htdocs/ddod_charts/value_delivered.html"
-DESTINATION_FRAME_WIDTH=524 
-DESTINATION_FRAME_HEIGHT=398
-
+ISSUES_FILE  = "./generated/value_delivered.html"
+WEB_SERVER_PATH = "~/htdocs/ddod_charts/value_delivered.html"
+BOKEH_SERVER_IP = 'http://172.31.52.103:5006/'
+DESTINATION_FRAME_WIDTH  = 524 
+DESTINATION_FRAME_HEIGHT = 398
+HTML_BODY_MARGIN = 8
 
 #==============================================================================
 def output_chart(issues_df,output_mode='static'):
@@ -176,15 +178,17 @@ def output_chart(issues_df,output_mode='static'):
                color=brewer["GnBu"][3]
               )
 
-    issues_chart.plot_width  = DESTINATION_FRAME_WIDTH 
-    issues_chart.plot_height = DESTINATION_FRAME_HEIGHT
+    issues_chart.plot_width  = DESTINATION_FRAME_WIDTH  - (HTML_BODY_MARGIN * 2)
+    issues_chart.plot_height = DESTINATION_FRAME_HEIGHT - (HTML_BODY_MARGIN * 2)
+    issues_chart.logo = None
+    issues_chart.toolbar_location = None
 
 
     #--- Configure output ---
     reset_output()
 
     if output_mode == 'static':
-        # Static file
+        # Static file.  CDN is most space efficient
         output_file(ISSUES_FILE, title=ISSUES_TITLE, 
             autosave=False, mode='cdn', 
             root_dir=None
@@ -194,8 +198,8 @@ def output_chart(issues_df,output_mode='static'):
         output_notebook()   # Show inline
         show(issues_chart)
     else:
-        # Server
-        session = bokeh.session.Session(root_url='http://172.31.52.103:5006/', load_from_config=False)
+        # Server (using internal server IP, rather than localhost or external)
+        session = bokeh.session.Session(root_url = BOKEH_SERVER_IP, load_from_config=False)
         output_server("ddod_chart", session=session)
         show(issues_chart)
 
@@ -203,12 +207,11 @@ def output_chart(issues_df,output_mode='static'):
 #==============================================================================
 # Move files to the desired destination
 def move_files():
-    import os
-    import shutil
+    from shutil import copy
+    from os     import path
 
-    shutil.copy(ISSUES_FILE,GENERATED_PATH)
-    shutil.copy(ISSUES_FILE,HTML_PATH)
-    os.remove(ISSUES_FILE)
+    #Need to expand path, since shutil.copy doesn't process tilde (~)
+    copy(path.expanduser(ISSUES_FILE), path.expanduser(WEB_SERVER_PATH))
 
 
 #==============================================================================
@@ -216,7 +219,7 @@ def main(sys_argv):
     process_params(sys_argv)
     issues_df = read_data(source_url)
     output_chart(issues_df)
-    # move_files()
+    move_files()
 
 
 #==============================================================================
