@@ -155,25 +155,30 @@ def read_data(source_url="", verbose=False, read_limit=0):
     return issues_df
 
 
+ISSUES_TITLE = "Number of Use Cases by Value delivered"
+ISSUES_FILE  = "~/htdocs/ddod_charts/value_delivered.html"
+DESTINATION_FRAME_WIDTH=524 
+DESTINATION_FRAME_HEIGHT=398
+
 
 #==============================================================================
 def output_chart(issues_df,output_mode='static'):
     import datetime
     import bokeh
 
-    ISSUES_TITLE = "Number of Use Cases by Value delivered"
-    ISSUES_FILE  = "~/htdocs/ddod_charts/value_delivered.html"
-    INTERACTIVE_MODE = False
-
     # Add timestamp to title
     
     issues_chart = Bar(issues_df, label='value_delivered', 
                values='status', agg='count', stack='status',
-               title=ISSUES_TITLE+" (Updated "+datetime.datetime.now().strftime('%m/%d/%Y %H:%M')+")", 
+               title=ISSUES_TITLE+" (Updated "+datetime.datetime.now().strftime('%m/%d/%Y')+")", 
                xlabel="Value Delivered",ylabel="Number of Use Cases",
                legend='top_right',
                color=brewer["GnBu"][3]
               )
+
+    issues_chart.plot_width  = DESTINATION_FRAME_WIDTH 
+    issues_chart.plot_height = DESTINATION_FRAME_HEIGHT
+
 
     #--- Configure output ---
     reset_output()
@@ -181,7 +186,7 @@ def output_chart(issues_df,output_mode='static'):
     if output_mode == 'static':
         # Static file
         output_file(ISSUES_FILE, title=ISSUES_TITLE, 
-            autosave=True, mode='inline', 
+            autosave=False, mode='cdn', 
             root_dir=None
                )   # Generate file
         save(issues_chart,filename=ISSUES_FILE)
@@ -196,10 +201,22 @@ def output_chart(issues_df,output_mode='static'):
 
 
 #==============================================================================
+# Move files to the desired destination
+def move_files():
+    import os
+    import shutil
+
+    shutil.copy(ISSUES_FILE,GENERATED_PATH)
+    shutil.copy(ISSUES_FILE,HTML_PATH)
+    os.remove(ISSUES_FILE)
+
+
+#==============================================================================
 def main(sys_argv):
     process_params(sys_argv)
     issues_df = read_data(source_url)
     output_chart(issues_df)
+    # move_files()
 
 
 #==============================================================================
