@@ -28,10 +28,6 @@ import getopt, sys  # For command line args
 OPTS = [("h","help"), ("o:","output="), ("u","url="), ("v", "verbose")]
 
 
-#--- Global variables ---
-source_url = ''
-
-
 
 #==============================================================================
 def usage():
@@ -53,7 +49,15 @@ def process_params(sys_argv):
         getopt.usage()
         sys.exit(2)
     #--- Clear params vars ---
-    verbose = False
+    global verbose
+    global source_url
+    global output_filename
+
+    verbose           = False
+    source_url        = ''
+    output_filename   = ''
+
+
     for o, a in opts:
         if o == "-v":
             verbose = True
@@ -61,14 +65,11 @@ def process_params(sys_argv):
             usage()
             sys.exit()
         elif o in ("-o", "--output"):
-            global output_filename
             output_filename = a
-        elif u in ("-u", "--url"):
-            global source_url
-            source_url = u
+        elif o in ("-u", "--url"):
+            source_url = o
         else:
             assert False, "unhandled option"
-    # ...
 
 
 
@@ -84,6 +85,7 @@ def read_data(source_url="", verbose=False, read_limit=0):
 
     # A specified url overrides everything
     if source_url:
+        if verbose: print("Loading from specified url: "+source_url)
         issues_get = requests.get(source_url)
         issues_string = issues_get.text
         issues_json = json.loads(issues_string)
@@ -92,13 +94,14 @@ def read_data(source_url="", verbose=False, read_limit=0):
         newest_file = max(glob.iglob(GITHUB_INTAKE_PATTERN), key = os.path.getctime)
         if newest_file:
             # Load the file
-            if verbose: print("Load the file")
             with open(newest_file) as json_data_file:
+                if verbose: print("Loading from file: "+newest_file.strip())
                 issues_json = json.load(json_data_file)
                 json_data_file.close()
         else:
             # Load from default URL
             source_url = DEFAULT_URL
+            if verbose: print("Loading from default url: "+source_url)
             issues_get = requests.get(source_url)
             issues_string = issues_get.text
             issues_json = json.loads(issues_string)
@@ -223,7 +226,7 @@ def move_files():
 #==============================================================================
 def main(sys_argv):
     process_params(sys_argv)
-    issues_df = read_data(source_url)
+    issues_df = read_data(source_url=source_url,verbose=verbose)
     output_chart(issues_df)
     move_files()
 

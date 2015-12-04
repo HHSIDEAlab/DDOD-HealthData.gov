@@ -1,0 +1,6 @@
+#!/bin/bash
+echo "Running ==> "$(date)
+cd ~/DDOD_processing/DDOD-HealthData.gov 
+
+# Explicitly especify python version, since this may be running form crontab
+/home/bitnami/anaconda3/bin/python value_delivered_chart.py -v  >> generated/ddod-hd_batch_jobs.log 2>&1
