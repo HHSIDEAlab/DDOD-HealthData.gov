@@ -62,4 +62,5 @@ target/
 
 # Specific to ddod-hd.gov project
 snapshots/
+generated/
 .ipynb_checkpoints/

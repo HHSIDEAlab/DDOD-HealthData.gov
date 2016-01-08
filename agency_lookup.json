@@ -1,0 +1,64 @@
+{
+    "columns": [
+        "agency_name",
+        "agency_abbrev"
+    ],
+    "bureau_codes": {
+        "009:00": [
+            "Department of Health and Human Services",
+            "DHHS"
+        ],
+        "009:10": [
+            "Food and Drug Administration",
+            "FDA"
+        ],
+        "009:15": [
+            "Health Resources and Services Administration",
+            "HRSA"
+        ],
+        "009:17": [
+            "Indian Health Service",
+            "IHS"
+        ],
+        "009:20": [
+            "Centers for Disease Control and Prevention",
+            "CDC"
+        ],
+        "009:25": [
+            "National Institutes of Health",
+            "NIH"
+        ],
+        "009:30": [
+            "Substance Abuse and Mental Health Services Administration",
+            "SAMHSA"
+        ],
+        "009:33": [
+            "Agency for Healthcare Research and Quality",
+            "AHRQ"
+        ],
+        "009:38": [
+            "Centers for Medicare and Medicaid Services",
+            "CMS"
+        ],
+        "009:70": [
+            "Administration for Children and Families",
+            "ACF"
+        ],
+        "009:75": [
+            "Administration for Community Living",
+            "ACL"
+        ],
+        "009:90": [
+            "Departmental Management",
+            "GDM"
+        ],
+        "009:91": [
+            "Program Support Center",
+            "PSC"
+        ],
+        "009:92": [
+            "Office of the Inspector General",
+            "OIG"
+        ]
+    }
+}
