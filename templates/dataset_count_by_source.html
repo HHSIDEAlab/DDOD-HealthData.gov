@@ -1,0 +1,45 @@
+{% block body %}
+
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+  
+
+<div id="chart_div"  style="width: 900px; height: 300px;">
+<div>
+
+
+ 
+{% endblock %}
+
+<script type='text/javascript'>
+      google.charts.load('current', {'packages':['corechart']});
+      google.charts.setOnLoadCallback(drawChart);
+      function drawChart() {
+        var data = new google.visualization.DataTable();
+        data.addColumn('date', '{{csv_data[0][0]}}');
+        {%- for col in csv_data[0][1:] %}
+        data.addColumn('number', '{{col}}');
+        {%- endfor %}
+
+        data.addRows([
+                {%- for row in csv_data[1:] %}
+                [new Date('{{row[0]}}'),
+                    {%- for col in row[1:] %}
+                    {{ col }},
+                    {%- endfor %}
+                ],
+                {%- endfor %}
+        ]);
+        var options = {
+          title: 'Dataset Counts by Source  ',
+          hAxis: {
+            format: 'M/d/yyyy',
+            gridlines: {count: 15}
+            },
+          vAxis: {minValue: 0}
+        };
+
+        var chart = new google.visualization.AreaChart(document.getElementById('chart_div'));
+        chart.draw(data, options);
+      }
+ </script>
