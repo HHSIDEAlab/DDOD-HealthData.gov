@@ -55,7 +55,6 @@ def get_key_list(dataset_list):
     #for # List of unique bureauCode values    
     
     totals = len(dataset_list)
-    #print get_keys(dataset[0])
     return key_list
 
 
@@ -73,14 +72,15 @@ def get_agency_abbrev_list(agency_lookup):
 
     # Looks more complex than needed, but due to sorting by key
     bureau_code_list = []
-    for bureau_code in agency_lookup.iterkeys():
+
+    for bureau_code in agency_lookup.keys():
         bureau_code_list.append(bureau_code) 
     bureau_code_list.sort()
 
     agency_abbrev_list = []
     for bureau_code in bureau_code_list:
-        agency_abbrev_list.append(agency_lookup[bureau_code]) 
-        
+        agency_abbrev_list.append(agency_lookup[bureau_code])
+ 
     return agency_abbrev_list
 
 
@@ -88,6 +88,7 @@ def get_agency_abbrev_list(agency_lookup):
 #: Convert to ordered list
 def convert_dict_to_list(dict_counts_by_date,agency_lookup):
     
+
     # --- Be sure list of abbreviations is sorted by key ---
     agency_abbrev_list = get_agency_abbrev_list(agency_lookup)
 
@@ -103,7 +104,7 @@ def convert_dict_to_list(dict_counts_by_date,agency_lookup):
 
     
     # --- Build row list in order ---
-    for row_date,row_counts in dict_counts_by_date.iteritems():
+    for row_date,row_counts in dict_counts_by_date.items():
         row_csv = []
         row_csv.append(row_date)
 
@@ -112,7 +113,7 @@ def convert_dict_to_list(dict_counts_by_date,agency_lookup):
             row_csv.append(str(row_counts.get(agency_abbrev,0)))
 
         row_csv_list.append(row_csv)
-        
+
     return row_csv_list
 
 
@@ -124,7 +125,7 @@ def convert_dict_to_list(dict_counts_by_date,agency_lookup):
 
 def save_list_to_csv(csv_data):
 
-    with open("generated/totals_by_agency.csv", "wb") as csv_file:
+    with open("generated/totals_by_agency.csv", "w") as csv_file:
         writer = csv.writer(csv_file)
         writer.writerows(csv_data)
         
@@ -138,14 +139,11 @@ def get_agency_counts(key_list,agency_lookup):
     for index,key_item in enumerate(key_list):
 
         agencies = key_item["bureauCode"]
-        #print key_item
-        #print key_item["publisher"]["name"]
 
 
         # Just in case it's not a list, make it one
         agencies = agencies if isinstance(agencies,list) else [agencies]
 
-        #print agencies
         for agency in agencies:
             #agency = agency.encode('ascii','ignore')
             agency_abbrev = agency_lookup.get(agency,"Other")
@@ -183,7 +181,9 @@ def load_agency_lookup():
    
     for agency_record in agency_lookup_columns['data']:
         # TBD: May want to convert unicode using  .encode('ascii','ignore')
-        agency_lookup[agency_record[bureau_code_index]] = agency_record[agency_abbrev_index].encode('ascii','ignore')
+        
+        agency_lookup[agency_record[bureau_code_index]] = str(agency_record[agency_abbrev_index])
+
 
     return agency_lookup
 
@@ -195,12 +195,13 @@ def get_file_name_list():
     file_pattern += "HealthData.gov[_][0-9][0-9][0-9][0-9][-][0-9][0-9][-][0-9][0-9][_]data.json"
     file_name_list = glob.glob(file_pattern)
     
-    return file_name_list
+    return sorted(file_name_list)
 
 
 
 
 def get_csv_date_list(csv_data):
+
     
     csv_date_list = []
     header = csv_data[0]
@@ -217,14 +218,24 @@ def get_csv_date_list(csv_data):
 ---  Reload the file only if it changed
 ------------------------------------------------
 '''
-def get_csv_data(last_mtime = 0, csv_data = []):
+def get_csv_data(csv_data = []):
     CSV_FILE_NAME = "generated/totals_by_agency.csv"
 
+    #: Remember values from last run
+    global mtime
     try:
-        mtime = os.path.getmtime(CSV_FILE_NAME)
-    except OSError:
+        mtime
+    except NameError:
         mtime = 0
-        return (mtime, csv_data)
+
+    last_mtime = mtime
+
+    if not os.path.exists(CSV_FILE_NAME) or os.path.getsize(CSV_FILE_NAME) == 0:
+    # try:
+    #    mtime = os.path.getmtime(CSV_FILE_NAME)
+    #except OSError:
+    #    mtime = 0
+        return csv_data
 
 
     # Reload if there's a newer file
@@ -233,7 +244,7 @@ def get_csv_data(last_mtime = 0, csv_data = []):
 
         csv_file = open(CSV_FILE_NAME)
         csv_reader = csv.reader(csv_file)
-        
+
         csv_data = []
         for index, row in enumerate(csv_reader):
             csv_data.append(row)
@@ -242,7 +253,7 @@ def get_csv_data(last_mtime = 0, csv_data = []):
 
     #: Sorted dates needed by some charting libraries
     csv_data = csv_data[0:1]+sorted(csv_data[1:])
-    return (mtime, csv_data)
+    return csv_data
 
 
 
@@ -250,7 +261,6 @@ def load_file(file_name):
     with open(file_name) as json_file:
         json_data = json.load(json_file)
         return json_data
-        print("Loaded file: "+file_name)
 
         
 
@@ -261,21 +271,24 @@ def load_file(file_name):
         
 
 
-def get_missing_csv_data(file_name_list,csv_data,agency_lookup):
+def get_missing_csv_data(csv_data,agency_lookup):
 
     dict_counts_by_date = {}
-    
+
+
     if len(csv_data) > 0:
         csv_date_list = get_csv_date_list(csv_data)
     else:
         csv_date_list = []
+
+    file_name_list = get_file_name_list()
 
     #: Load missing dates
     for index, file_name in enumerate(reversed(file_name_list)):
         snapshot_file_date = parse_date(file_name)
 
         if snapshot_file_date not in csv_date_list:
-            print "Loading missing date: "+file_name
+            print("Loading missing date: "+file_name)
 
             dataset_list = load_file(file_name)
             dataset_list = support_old_schema(dataset_list)
@@ -308,7 +321,7 @@ def get_dict_counts_by_date(file_name_list,csv_date_list,agency_lookup):
         snapshot_file_date = parse_date(file_name)
 
         if snapshot_file_date not in csv_date_list:
-            print "Loading missing date: "+file_name
+            print("Loading missing date: "+file_name)
 
             dataset_list = load_file(file_name)
             dataset_list = support_old_schema(dataset_list)
@@ -334,12 +347,18 @@ def update_csv_from_snapshots():
     global MAX_LOOP
     MAX_LOOP = 0   # Don't limit loops for debug
 
+    #: Remember values from last run
+    global csv_data
+    try:
+        csv_data
+    except NameError:
+        csv_data = []
 
-    file_name_list = get_file_name_list()
-    mtime, csv_data = get_csv_data()
+
     agency_lookup = load_agency_lookup()
+    csv_data = get_csv_data(csv_data)
 
-    missing_csv_data = get_missing_csv_data(file_name_list,csv_data,agency_lookup)
+    missing_csv_data = get_missing_csv_data(csv_data,agency_lookup)
 
 
     
