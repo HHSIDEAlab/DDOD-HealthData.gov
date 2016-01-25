@@ -10,20 +10,6 @@ app = Flask(__name__, template_folder=tmpl_dir)
 
 
 @app.route("/")
-def index():
-    rates = getExchangeRates()
-    return render_template('test.html',**locals())      
-
-
-
-@app.route('/chart_ninja')
-def chart_ninja():
-	data = [('Sunday', 48), ('Monday', 27), ('Tuesday', 32), ('Wednesday', 42),
-			('Thursday', 38), ('Friday', 45), ('Saturday', 52)]
-	return render_template('chart_ninja.html', data=data)
-
-
-
 @app.route("/data")
 def data():
     csv_data = data_json_counts.update_csv_from_snapshots()

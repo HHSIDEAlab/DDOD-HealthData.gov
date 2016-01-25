@@ -125,10 +125,16 @@ def convert_dict_to_list(dict_counts_by_date,agency_lookup):
 
 def save_list_to_csv(csv_data):
 
-    with open("generated/totals_by_agency.csv", "w") as csv_file:
+    print("Saving to CSV file")
+
+
+    with open(CSV_FILE_NAME, "w") as csv_file:
         writer = csv.writer(csv_file)
         writer.writerows(csv_data)
-        
+
+    # Keep track of last update
+    mtime = os.path.getmtime(CSV_FILE_NAME)
+    
     return 
 
         
@@ -219,7 +225,6 @@ def get_csv_date_list(csv_data):
 ------------------------------------------------
 '''
 def get_csv_data(csv_data = []):
-    CSV_FILE_NAME = "generated/totals_by_agency.csv"
 
     #: Remember values from last run
     global mtime
@@ -228,18 +233,18 @@ def get_csv_data(csv_data = []):
     except NameError:
         mtime = 0
 
-    last_mtime = mtime
 
+    #: Don't do anything, if no file to load
     if not os.path.exists(CSV_FILE_NAME) or os.path.getsize(CSV_FILE_NAME) == 0:
-    # try:
-    #    mtime = os.path.getmtime(CSV_FILE_NAME)
-    #except OSError:
-    #    mtime = 0
         return csv_data
 
+        
+    last_mtime = mtime
+    mtime = os.path.getmtime(CSV_FILE_NAME)
 
-    # Reload if there's a newer file
-    if mtime > last_mtime:
+    #: Reload if there's a newer file
+    if mtime > last_mtime or len(csv_data)==0:
+        print("Loading from CSV file")
         last_mtime = mtime
 
         csv_file = open(CSV_FILE_NAME)
@@ -257,18 +262,13 @@ def get_csv_data(csv_data = []):
 
 
 
+
 def load_file(file_name):
     with open(file_name) as json_file:
         json_data = json.load(json_file)
         return json_data
 
-        
 
-        
-        
-        
-        
-        
 
 
 def get_missing_csv_data(csv_data,agency_lookup):
@@ -347,6 +347,9 @@ def update_csv_from_snapshots():
     global MAX_LOOP
     MAX_LOOP = 0   # Don't limit loops for debug
 
+    global CSV_FILE_NAME
+    CSV_FILE_NAME = "generated/totals_by_agency.csv"
+
     #: Remember values from last run
     global csv_data
     try:
@@ -357,6 +360,7 @@ def update_csv_from_snapshots():
 
     agency_lookup = load_agency_lookup()
     csv_data = get_csv_data(csv_data)
+    csv_data_saved = csv_data
 
     missing_csv_data = get_missing_csv_data(csv_data,agency_lookup)
 
@@ -372,7 +376,10 @@ def update_csv_from_snapshots():
             csv_data = csv_data[0:1]+sorted(csv_data[1:]+missing_csv_data[1:])
 
 
-    save_list_to_csv(csv_data)
+    # Save only if data changed
+    if csv_data_saved != csv_data:
+        save_list_to_csv(csv_data)
+
     return csv_data
 
     
