@@ -1,2 +1,8 @@
 #!/bin/bash
-curl "http://dashboard.ddod.us:5000/data" >  ~/htdocs/ddod_charts/data_json_counts.html
+
+# This call relies on Flask service to be running continuously
+# curl "http://dashboard.ddod.us:5000/data" >  ~/htdocs/ddod_charts/data_json_counts.html
+
+# Don't rely on Flask service to be running.  Launch it, generate HTML, shut it down
+python run_batch_data_json_counts.py  & sleep 2 && curl "http://localhost:5001/"
+cp generated/data_json_counts.html ~/htdocs/ddod_charts/data_json_counts.html
