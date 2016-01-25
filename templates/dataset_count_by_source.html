@@ -1,15 +1,8 @@
-{% block body %}
+<!doctype html>
+<head>
 
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 
-  
-
-<div id="chart_div"  style="width: 1000px; height: 800px;">
-<div>
-
-
- 
-{% endblock %}
 
 <script type='text/javascript'>
       google.charts.load('current', {'packages':['corechart']});
@@ -31,7 +24,7 @@
                 {%- endfor %}
         ]);
         var options = {
-          title: 'Dataset Counts by Source  ',
+          title: 'Dataset Counts by Source',
           hAxis: {
             format: 'M/d/yyyy',
             gridlines: {count: 15}
@@ -43,3 +36,13 @@
         chart.draw(data, options);
       }
  </script>
+
+
+
+  <title>Dataset Counts by Source</title>
+
+</head>
+<body>
+  <div id="chart_div"  style="width: 1000px; height: 800px;">
+  </div>
+</body>
