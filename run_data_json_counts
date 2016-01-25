@@ -1,0 +1,2 @@
+#!/bin/bash
+curl "http://dashboard.ddod.us:5000/data" >  ~/htdocs/ddod_charts/data_json_counts.html
