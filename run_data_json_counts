@@ -1,4 +1,4 @@
 #!/bin/bash
 # For use with cron
 python run_batch_data_json_counts.py
-cp generated/dataset_count_by_source.htm ~/htdocs/ddod_charts/
+cp generated/dataset_count_by_source.html ~/htdocs/ddod_charts/
