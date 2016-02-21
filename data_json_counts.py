@@ -1,4 +1,9 @@
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
+######################
+##  2016-02-20  Created by David Portnoy
+######################
+
 import os
 import glob   # Wildcard search
 import json
