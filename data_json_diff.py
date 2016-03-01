@@ -1,5 +1,5 @@
+# %load data_json_diff.py
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-
 ######################
 ##  2016-02-20  Created by David Portnoy
 ######################
@@ -35,6 +35,14 @@ def load_file_json(json_file_name):
         json_data_struct = json.load(json_file)
         json_data_struct = make_json_data_struct_compatible(json_data_struct)
     return json_data_struct
+
+
+
+def parse_date(file_name):
+    starting_point_of_date = "_20"
+    date_pos_start = file_name.find(starting_point_of_date)+1
+    return file_name[date_pos_start:date_pos_start+10]
+
 
 
 
@@ -168,21 +176,54 @@ def get_comparison_diffs(dataset_list_before, dataset_list_after):
             compare_before = dataset_before
             compare_after  = ''
             compare_diff   = ''
+            
 
+        #=== Write key entry to file only if there was a change === 
+        if compare_status == "No Change":
+            json_compare_dict.pop(check_key, None)   # Delete previously written key
+        else:
+            json_compare_dict[check_key] = {'Status'     : compare_status,
+                                            'Before'     : compare_before,
+                                            'After'      : compare_after,
+                                            'Difference' : compare_diff
+                                            }
 
+        dataset_list_diff["Counts"][compare_status] += 1
+        dataset_list_diff["Counts"]["Added"    ]    -= 1  # Reverses initial add for all records 
+    
+    # Add on dictionary of changes
+    dataset_list_diff["Diff"] = json_compare_dict
+    
+    return dataset_list_diff
 
-        json_compare_dict[check_key] = {'Status'     : compare_status,
-                                        'Before'     : compare_before,
-                                        'After'      : compare_after,
-                                        'Difference' : compare_diff
-                                        }
+    
 
-    dataset_list_diff["Counts"][compare_status] += 1
-    dataset_list_diff["Counts"]["Added"    ]    -= 1  # Reverses initial add for all records 
+def save_json_diff(comparison_diffs, file_start, file_end):
 
+    date_start = parse_date(file_start)
+    date_end   = parse_date(file_end  )
+    file_name  = './generated/dataset_diff_' + date_start + '_' + date_end + '.json'
+
+    # Replace the literals in compare and write to file
+    diffs_dump = json.dumps(comparison_diffs, indent=4, sort_keys=True)
+    diffs_dump = diffs_dump.replace("\\n","\n")   # Newline
+    diffs_dump = diffs_dump.replace("\\\"","\"")  # Double quote
+    diffs_dump = diffs_dump.replace("\\\'","\'")  # Single quote
+    with open(file_name, "w") as text_file:
+        print("{}".format(diffs_dump), file=text_file)
+    
+    
+    
 
 # Returns result from two most recent dates
-def main():
-    file_list      = get_file_list(max_load=2)
+def main(max_load=2):
+    file_list      = get_file_list(max_load)
+    
     json_data_list = load_file_list(file_list)
-    comparison_diffs = get_comparison_diffs(json_data_list[0],json_data_list[1])    
+    for i in range(max_load-1):
+        comparison_diffs = get_comparison_diffs(json_data_list[i+1], json_data_list[i])
+        save_json_diff(        comparison_diffs,file_list     [i+1], file_list     [i])
+        
+
+        
+    
