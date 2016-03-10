@@ -140,9 +140,7 @@ def get_comparison_diffs(dataset_list_before, dataset_list_after):
         check_key = dataset_after['identifier']
 
         json_compare_dict[check_key] = {'Status'    : "Added",
-                                        'Before'    : None,
                                         'After'     : dataset_after,
-                                        'Difference': None
                                        }
         dataset_list_diff["Counts"]["Added"] += 1
 
@@ -167,29 +165,27 @@ def get_comparison_diffs(dataset_list_before, dataset_list_after):
             dataset_after = json_compare_dict[check_key]['After']
             compare_status, compare_diff = check_differences(dataset_before, dataset_after)
 
-            compare_before = ''  # Only needed for "Deleted"
-            compare_after  = ''  # Only needed for "Added"
+            dataset_list_diff["Counts"][compare_status] += 1
+            dataset_list_diff["Counts"]["Added"    ]    -= 1  # Reverses initial add for all records 
+
+            #=== Write key entry to file only if there was a change === 
+            if   compare_status == "No Change":
+                json_compare_dict.pop(check_key, None)   # Delete previously written key
+            else:
+                # compare_status == "Changed"
+                json_compare_dict[check_key] = {'Status'     : compare_status,
+                                                'Difference' : compare_diff,
+                                               }
 
         else:
             # Deleted
             compare_status = "Deleted"
-            compare_before = dataset_before
-            compare_after  = ''
-            compare_diff   = ''
+            dataset_list_diff["Counts"][compare_status] += 1
             
+            json_compare_dict[check_key] = {'Status' : compare_status,
+                                            'Before' : dataset_before,
+                                           }
 
-        #=== Write key entry to file only if there was a change === 
-        if compare_status == "No Change":
-            json_compare_dict.pop(check_key, None)   # Delete previously written key
-        else:
-            json_compare_dict[check_key] = {'Status'     : compare_status,
-                                            'Before'     : compare_before,
-                                            'After'      : compare_after,
-                                            'Difference' : compare_diff
-                                            }
-
-        dataset_list_diff["Counts"][compare_status] += 1
-        dataset_list_diff["Counts"]["Added"    ]    -= 1  # Reverses initial add for all records 
     
     # Add on dictionary of changes
     dataset_list_diff["Diff"] = json_compare_dict
