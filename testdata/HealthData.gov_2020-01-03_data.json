@@ -1,0 +1,204 @@
+{
+    "@context": "https://project-open-data.cio.gov/v1.1/schema/catalog.jsonld",
+    "@id": "http://healthdatagov.prod.acquia-sites.com/data.json",
+    "@type": "dcat:Catalog",
+    "conformsTo": "https://project-open-data.cio.gov/v1.1/schema",
+    "describedBy": "https://project-open-data.cio.gov/v1.1/schema/catalog.json",
+    "dataset": [
+        {
+            "@type": "dcat:Dataset",
+            "accessLevel": "public",
+            "bureauCode": [
+                "009:20"
+            ],
+            "contactPoint": {
+                "fn": "CDC INFO",
+                "hasEmail": "mailto:HealthData@hhs.gov"
+            },
+            "description": "<p>For more information on CDC.gov metrics please see <a href=\"http://www.cdc.gov/metrics/\">http://www.cdc.gov/metrics/</a></p>\n",
+            "distribution": [
+                {
+                    "@type": "dcat:Distribution",
+                    "downloadURL": "https://data.cdc.gov/api/views/rq85-buyi/rows.csv?accessType=DOWNLOAD",
+                    "mediaType": "application/unknown",
+                    "format": "csv",
+                    "title": "csv"
+                },
+                {
+                    "@type": "dcat:Distribution",
+                    "downloadURL": "https://data.cdc.gov/api/views/rq85-buyi/rows.rdf?accessType=DOWNLOAD",
+                    "mediaType": "application/unknown",
+                    "format": "rdf",
+                    "title": "rdf"
+                },
+                {
+                    "@type": "dcat:Distribution",
+                    "downloadURL": "https://data.cdc.gov/api/views/rq85-buyi/rows.json?accessType=DOWNLOAD",
+                    "mediaType": "application/unknown",
+                    "format": "json",
+                    "title": "json"
+                },
+                {
+                    "@type": "dcat:Distribution",
+                    "downloadURL": "https://data.cdc.gov/api/views/rq85-buyi/rows.xml?accessType=DOWNLOAD",
+                    "mediaType": "application/unknown",
+                    "format": "text/xml",
+                    "title": "xsl"
+                }
+            ],
+            "identifier": "https://data.cdc.gov/api/views/rq85-buyi",
+            "keyword": [
+                "cdc.gov",
+                "web metrics"
+            ],
+            "language": [
+                "en"
+            ],
+            "modified": "2016-02-10",
+            "programCode": [
+                "009:020"
+            ],
+            "publisher": {
+                "@type": "org:Organization",
+                "name": "Centers for Disease Control and Prevention"
+            },
+            "title": "Monthly Page Views to CDC.gov"
+        },
+        {
+            "@type": "dcat:Dataset",
+            "accessLevel": "public",
+            "bureauCode": [
+                "009:38"
+            ],
+            "contactPoint": {
+                "fn": "Health Data Initiative",
+                "hasEmail": "mailto:HealthData@hhs.gov"
+            },
+            "description": "<p>The data that is used by the Nursing Home Compare tool can be downloaded for public use. This functionality is primarily used by health policy researchers and the media. Demographic data is refreshed monthly while quality measures are refreshed the first month of each quarter. In order to ease the downloading process, the data have been divided into 5 separate databases. About the Nursing Home About the Nursing Home Inspection Results About the Nursing Home Residents About the Nursing Home Staff About the Nursing Home Ratings.</p>\n",
+            "identifier": "342",
+            "keyword": [
+                "Activities of Daily Living (ADL)",
+                "Activity Limitation",
+                "Body Mass Index (BMI)",
+                "Interactive Tools",
+                "Pain Management",
+                "Skilled Nursing (SNF)"
+            ],
+            "language": [
+                "en"
+            ],
+            "modified": "2015-12-16",
+            "programCode": [
+                "009:000"
+            ],
+            "publisher": {
+                "@type": "org:Organization",
+                "name": "Centers for Medicare &amp; Medicaid Services"
+            },
+            "title": "Nursing Home Compare"
+        },
+        {
+            "@type": "dcat:Dataset",
+            "accessLevel": "public",
+            "bureauCode": [
+                "009:38"
+            ],
+            "contactPoint": {
+                "fn": "Health Data Initiative",
+                "hasEmail": "mailto:HealthData@hhs.gov"
+            },
+            "description": "<p>The National Plan and Provider Enumeration System, NPPES, downloadable file, also referred to as the NPI Downloadable File, contains FOIA disclosable NPPES health care provider data for health care providers who have been assigned National Provider Identifiers, NPIs. In accordance with the NPPES Data Dissemination Notice, each month CMS will create a single zipped file that will contain 1. a data file containing all of the FOIA disclosable health care provider data in NPPES as of a certain date in the month, 2. a Read Me File describing the information in the data file, 3. a Header File containing the format of the data file, and 4. a Code Values document listing the descriptions for all of the codes found in the data file. Each month, CMS replaces the previous months file, only one file is available for downloading at any given time.</p>\n",
+            "identifier": "333",
+            "keyword": [
+                "Publically Available Data File - for download"
+            ],
+            "language": [
+                "en"
+            ],
+            "modified": "2015-12-15",
+            "programCode": [
+                "009:000"
+            ],
+            "publisher": {
+                "@type": "org:Organization",
+                "name": "Centers for Medicare &amp; Medicaid Services"
+            },
+            "title": "National Provider Identifier Standard - Data Dissemination"
+        },
+        {
+            "@type": "dcat:Dataset",
+            "accessLevel": "public",
+            "bureauCode": [
+                "009:38"
+            ],
+            "contactPoint": {
+                "fn": "Health Data Initiative",
+                "hasEmail": "mailto:HealthData@hhs.gov"
+            },
+            "description": "<p>The CMS Wallet Card is a quick reference statistical summary on annual CMS program and financial data. The CMS Wallet Card is available for each year from 2004 through 2012.  The 2012 version is the last version of the Wallet Card.  Similar information is available in the CMS Fast Facts, a new quick reference and mobile enabled CMS information product with statistical summaries on CMS program and financial data.  The CMS Fast Facts is updated as new data become available.</p>\n",
+            "identifier": "250",
+            "keyword": [
+                "Federally Qualified Health Center (FQHC)",
+                "Home Health (HHA)",
+                "Long Term Care (LTC)",
+                "Short Stay Hospital (SSH)",
+                "Skilled Nursing (SNF)"
+            ],
+            "language": [
+                "en"
+            ],
+            "modified": "2016-01-06",
+            "programCode": [
+                "009:000"
+            ],
+            "publisher": {
+                "@type": "org:Organization",
+                "name": "Centers for Medicare &amp; Medicaid Services"
+            },
+            "temporal": "2004-01-01T00:00:00-05:00/2012-12-31T00:00:00-05:00",
+            "title": "CMS Wallet Card"
+        },
+        {
+            "@type": "dcat:Dataset",
+            "accessLevel": "public",
+            "bureauCode": [
+                "009:38"
+            ],
+            "contactPoint": {
+                "fn": "Health Data Initiative",
+                "hasEmail": "mailto:HealthData@hhs.gov"
+            },
+            "description": "<p>The CMS Center for Strategic Planning produces an annual CMS Statistics reference booklet that provides a quick reference for summary information about health expenditures and the Medicare and Medicaid health insurance programs. The CMS Statistics reference booklet is published in June of each calendar year and represents the most currently available information at the time of publication. CMS Statistics reference booklets are available for 2003 through the most currently available complete calendar year.</p>\n",
+            "identifier": "249",
+            "keyword": [
+                "Ambulatory Surgical Center",
+                "Durable Medical Equipment (DME)",
+                "End Stage Renal Disease (ESRD)",
+                "Home Health (HHA)",
+                "Long Term Care (LTC)",
+                "Medicare Administrative Contractor (MAC)",
+                "Medicare Advantage",
+                "Minority Health",
+                "Persons Served",
+                "Physician Services",
+                "Prescription Drug Plans",
+                "Psychiatric Facility",
+                "Short Stay Hospital (SSH)",
+                "Skilled Nursing (SNF)"
+            ],
+            "language": [
+                "en"
+            ],
+            "modified": "2016-01-06",
+            "programCode": [
+                "009:000"
+            ],
+            "publisher": {
+                "@type": "org:Organization",
+                "name": "Centers for Medicare &amp; Medicaid Services"
+            },
+            "temporal": "2003-01-01T00:00:00-05:00/2014-12-31T00:00:00-05:00",
+            "title": "CMS Statistics Reference Booklet"
+        }
+    ]
+}
