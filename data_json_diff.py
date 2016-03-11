@@ -1,4 +1,4 @@
-# %load data_json_diff.py
+# coding: utf-8
 #!/usr/bin/env python
 ######################
 ##  2016-02-20  Created by David Portnoy
@@ -6,6 +6,7 @@
 
 import json_delta
 import json
+import yaml
 import os
 import glob      # Wildcard search
 import sys       # for stdout
@@ -103,7 +104,6 @@ def check_differences(dataset_before, dataset_after):
     
     # Must compare sorted versions of json struct
     if ordered_json(dataset_after) == ordered_json(dataset_before):
-        if debug: print("\nNo change\n")
         compare_status = "No Change"
         udiff_output = ''
     else:
@@ -111,15 +111,16 @@ def check_differences(dataset_before, dataset_after):
 
         # Analyze difference only if changed
         
-        if debug: print("\nStarting json_delta.udiff() for " 
-                        + dataset_before['identifier'] 
-                        + str(datetime.datetime.utcnow())
+        if debug: print("\nStarting json_delta.udiff()" 
+                        + " for " + dataset_before['identifier'] 
+                        + " at "+ str(datetime.datetime.utcnow())
                        )
 
         udiff_list = json_delta.udiff(dataset_before, dataset_after)
         udiff_output = '\n'.join(udiff_list)
 
-        if debug: print("Finished json_delta.udiff()"+ str(datetime.datetime.utcnow()) +"\n")
+        if debug: print("Finished json_delta.udiff()"
+                        + " at "+ str(datetime.datetime.utcnow()) +"\n")
     
     return (compare_status, udiff_output)
 
@@ -186,6 +187,7 @@ def get_comparison_diffs(dataset_list_before, dataset_list_after):
                                             'Before' : dataset_before,
                                            }
 
+        if debug: print("\n"+compare_status) 
     
     # Add on dictionary of changes
     dataset_list_diff["Diff"] = json_compare_dict
@@ -194,20 +196,25 @@ def get_comparison_diffs(dataset_list_before, dataset_list_after):
 
     
 
-def save_json_diff(comparison_diffs, file_start, file_end):
+def save_json_diff(comparison_diffs, file_start, file_end, file_format = 'json'):
 
     date_start = parse_date(file_start)
     date_end   = parse_date(file_end  )
-    file_name  = './generated/dataset_diff_' + date_start + '_' + date_end + '.json'
+    file_name  = './generated/dataset_diff_' + date_start + '_' + date_end + '.' + file_format
 
     # Replace the literals in compare and write to file
-    diffs_dump = json.dumps(comparison_diffs, indent=4, sort_keys=True)
+    if file_format == 'json':
+        diffs_dump = json.dumps(comparison_diffs, indent=4, sort_keys=True)
+    else:  # yaml
+        diffs_dump = yaml.dump(comparison_diffs, default_flow_style=False, explicit_start=True)
+
     diffs_dump = diffs_dump.replace("\\n","\n")   # Newline
     diffs_dump = diffs_dump.replace("\\\"","\"")  # Double quote
     diffs_dump = diffs_dump.replace("\\\'","\'")  # Single quote
     with open(file_name, "w") as text_file:
         print("{}".format(diffs_dump), file=text_file)
-    
+
+  
     
     
 
@@ -218,7 +225,8 @@ def main(max_load=2):
     json_data_list = load_file_list(file_list)
     for i in range(max_load-1):
         comparison_diffs = get_comparison_diffs(json_data_list[i+1], json_data_list[i])
-        save_json_diff(        comparison_diffs,file_list     [i+1], file_list     [i])
+        save_json_diff(        comparison_diffs,file_list     [i+1], file_list     [i], 'json')
+        save_json_diff(        comparison_diffs,file_list     [i+1], file_list     [i], 'yaml')
         
 
         
