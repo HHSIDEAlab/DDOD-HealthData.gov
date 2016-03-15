@@ -6,6 +6,9 @@
 
 
 from data_json_tools import data_json_tools as tools
+import pandas as pd
+from datetime import datetime
+
 
 
 # Pull out the most important elements to tally on
@@ -69,9 +72,8 @@ def get_dataset_url_dict(dataset, agency_lookup={}, index=0):
     dataset_urls        = get_dataset_urls(dataset)
     
     dataset_bureau_code = dataset.get('bureauCode','[Other]')[0]  # Take only 1st element of bureau_code list 
-    print(dataset_bureau_code)
     dataset_agency      = agency_lookup.get(dataset_bureau_code,'Other')
-    print(dataset_agency)
+
 
     
     dataset_url_dict = {}
@@ -100,16 +102,6 @@ def get_catalog_urls(json_catalog, agency_lookup ={} ):
     return catalog_urls
 
 
-
-'''
-dataset_url_list = []
-for i,url in enumerate(dataset_urls):
-    dataset_url_list['id'       ] = dataset_id
-    dataset_url_list['agency'   ] = dataset_agency
-    dataset_url_list['url'      ] = url
-    dataset_url_list['url_index'] = i
-
-'''
 
 
 
@@ -168,27 +160,46 @@ def get_dict_counts_by_date(file_name_list,csv_date_list,agency_lookup={}):
 
 
 
+def build_catalog_urls_list(file_list):
+    
+    agency_lookup = tools.load_agency_lookup()
+
+    global url_df
+    url_df = pd.DataFrame(columns=['date', 'id', 'agency', 'url', 'url_index', 'url_status'])
+    row_index = 0
+
+    
+    for file_num,file_name in enumerate(file_list):
+        
+        json_catalog = tools.load_file_json(file_name)
+
+        catalog_urls = get_catalog_urls(json_catalog, agency_lookup)
+        
+        date_str = tools.parse_date('HealthData.gov_2020-01-04_data.json')
+        
+        for dataset_urls in catalog_urls:
+            for url_index,dataset_url in enumerate(dataset_urls['url']):
+                
+                url_df.loc[row_index] = [  datetime.strptime(date_str,'%Y-%m-%d') #  'date'
+                                         , dataset_urls['id']
+                                         , dataset_urls['agency']
+                                         , dataset_url
+                                         , url_index
+                                         , '' # 'url_status'
+                                        ]
+                row_index += 1
+            
+    
+    
+
+
+
 
 # Returns result from most recent dates
 def main(max_load=1):
     
-    file_list      = tools.get_file_list(max_load)
+    file_list         = tools.get_file_list(max_load)
     
-    json_catalog_list = tools.load_file_list(file_list)
-    
-    '''    
-    for i in range(max_load-1):
-        comparison_diffs = get_comparison_diffs(json_data_list[i+1], json_data_list[i])
-        save_json_diff(        comparison_diffs,file_list     [i+1], file_list     [i], 'json')
-        save_json_diff(        comparison_diffs,file_list     [i+1], file_list     [i], 'yaml')
-        
-    '''
-    
-    agency_lookup = tools.load_agency_lookup()
+    build_catalog_urls_list(file_list)
 
-    for index,json_catalog in enumerate(json_catalog_list):
-        catalog_urls = get_catalog_urls(json_catalog, agency_lookup)
     
-    print(catalog_urls)
-
-    #get_dict_counts_by_date(file_name_list,csv_date_list,agency_lookup)
