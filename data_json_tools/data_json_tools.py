@@ -55,6 +55,23 @@ def get_file_list(max_load=None):
     file_list = file_list_all[:list_size]
     return file_list
     
+
+
+
+
+
+
+def support_old_schema(dataset_list):
+    if isinstance(dataset_list, dict):
+        return dataset_list["dataset"]
+    elif isinstance(dataset_list, list):
+        return dataset_list
+    else:
+        return None
+
+
+
+
     
 
 def load_file_list(file_list):
@@ -75,6 +92,30 @@ def ordered_json(obj):
         return sorted(ordered_json(x) for x in obj)
     else:
         return obj
+
+
+
+
+
+def load_agency_lookup():
+
+    with open('agency_lookup_columns.json') as data_file:    
+        agency_lookup_columns = json.load(data_file)
+
+    bureau_code_index = agency_lookup_columns['columns'].index('bureau_code')
+    agency_abbrev_index = agency_lookup_columns['columns'].index('agency_abbrev')
+ 
+    agency_lookup = {}
+   
+    for agency_record in agency_lookup_columns['data']:
+        # TBD: May want to convert unicode using  .encode('ascii','ignore')
+        
+        agency_lookup[agency_record[bureau_code_index]] = str(agency_record[agency_abbrev_index])
+
+
+    return agency_lookup
+
+
 
 
 
