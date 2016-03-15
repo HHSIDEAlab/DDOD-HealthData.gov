@@ -58,6 +58,9 @@ def get_dataset_urls(dataset):
         if 'downloadURL' in distrib:
             dataset_urls.append(distrib['downloadURL'])
             
+    if len(dataset_urls) == 0:
+        dataset_urls = ['Missing']
+            
     return dataset_urls
 
 
@@ -175,7 +178,7 @@ def build_catalog_urls_list(file_list):
 
         catalog_urls = get_catalog_urls(json_catalog, agency_lookup)
         
-        date_str = tools.parse_date('HealthData.gov_2020-01-04_data.json')
+        date_str = tools.parse_date(file_name)
         
         for dataset_urls in catalog_urls:
             for url_index,dataset_url in enumerate(dataset_urls['url']):
@@ -196,10 +199,14 @@ def build_catalog_urls_list(file_list):
 
 
 # Returns result from most recent dates
-def main(max_load=1):
+def main(max_load=1, file_date_pattern=''):
     
-    file_list         = tools.get_file_list(max_load)
+    
+    file_list  = tools.get_file_list(max_load, file_date_pattern)
     
     build_catalog_urls_list(file_list)
 
+
     
+# Example
+# main(max_load=1, file_date_pattern='2016-02-01')
