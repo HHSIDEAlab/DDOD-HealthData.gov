@@ -1,3 +1,4 @@
+# coding: utf-8
 #!/usr/bin/env python
 # %%writefile data_json_links.py
 ######################
@@ -8,6 +9,11 @@
 from data_json_tools import data_json_tools as tools
 import pandas as pd
 from datetime import datetime
+
+
+
+global url_df
+global catalog_date_urls
 
 
 
@@ -172,18 +178,26 @@ def build_catalog_urls_list(file_list):
     row_index = 0
 
     
-    for file_num,file_name in enumerate(file_list):
+    global catalog_date_urls
+    catalog_date_urls = {}
+
+    
+    for file_name in file_list:
         
         json_catalog = tools.load_file_json(file_name)
 
         catalog_urls = get_catalog_urls(json_catalog, agency_lookup)
         
-        date_str = tools.parse_date(file_name)
+        file_date_str = tools.parse_date(file_name)
+        file_date     = datetime.strptime(file_date_str,'%Y-%m-%d')
+        
+        catalog_date_urls[file_date_str] = catalog_urls   # Append file just processed
+        
         
         for dataset_urls in catalog_urls:
             for url_index,dataset_url in enumerate(dataset_urls['url']):
                 
-                url_df.loc[row_index] = [  datetime.strptime(date_str,'%Y-%m-%d') #  'date'
+                url_df.loc[row_index] = [  file_date
                                          , dataset_urls['id']
                                          , dataset_urls['agency']
                                          , dataset_url
@@ -209,4 +223,4 @@ def main(max_load=1, file_date_pattern=''):
 
     
 # Example
-# main(max_load=1, file_date_pattern='2016-02-01')
+# main(max_load=1, file_date_pattern=['201[0-9]-[0-1][1-9]-01'])  # 1st date of every month

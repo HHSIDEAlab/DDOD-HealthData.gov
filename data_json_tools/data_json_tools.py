@@ -47,16 +47,23 @@ def parse_date(file_name):
 
 
 
-def get_file_list(max_load=None, file_date_pattern=''):
+def get_file_list(max_load=None, file_date_pattern=[]):
 
     if not file_date_pattern:
-        file_date_pattern='[0-9][0-9][0-9][0-9][-][0-9][0-9][-][0-9][0-9]' 
+        file_date_pattern='[0-9][0-9][0-9][0-9][-][0-9][0-9][-][0-9][0-9]'
 
-    file_pattern = "snapshots/"
-    file_pattern += "HealthData.gov[_]"+ file_date_pattern +"[_]data.json"
-    file_list_all = sorted(glob.glob(file_pattern), reverse=True)
-    list_size = len(file_list_all) if not max_load else max_load
-    file_list = file_list_all[:list_size]
+    file_list_all = []
+
+    if type(file_date_pattern) is not list: file_date_pattern = [file_date_pattern]
+    for single_file_date_pattern in file_date_pattern:
+        file_pattern   = "snapshots/"
+        file_pattern  += "HealthData.gov[_]"+ single_file_date_pattern +"[_]data.json"
+        file_list_all += glob.glob(file_pattern)
+
+    file_list_all = sorted(file_list_all, reverse=True)
+    list_size     = len(file_list_all) if not max_load else max_load
+    file_list     = file_list_all[:list_size]
+
     return file_list
 
 
