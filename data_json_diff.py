@@ -99,6 +99,22 @@ def get_comparison_counts(json_compare_dict):
 
 
 
+def beautify_diff(ugly_diff):
+    
+    pretty_diff = "\n===\n" + ugly_diff + "\n===\n"   # Break into separate section
+
+    string_mapping = {"\n"  : "!~" ,  # Hide newline to prevent wrong yaml interpretation
+                      "\\\"" : ""  ,  # Remove Double quote with backslash
+                      "\\\'" : ""  ,  # Remove Single quote with backslash
+                      "\""   : ""  ,  # Remove Double quote
+                      "\'"   : ""  ,  # Remove Single quote
+                      }
+    for char_before, char_after in string_mapping.items():  
+        pretty_diff = pretty_diff.replace( char_before, char_after )
+        
+    return pretty_diff
+
+
     
 def check_differences(dataset_before, dataset_after):
     
@@ -116,8 +132,10 @@ def check_differences(dataset_before, dataset_after):
                         + " at "+ str(datetime.datetime.utcnow())
                        )
 
-        udiff_list = json_delta.udiff(dataset_before, dataset_after)
+        udiff_list   = json_delta.udiff(dataset_before, dataset_after)
         udiff_output = '\n'.join(udiff_list)
+        udiff_output = beautify_diff(udiff_output)
+        
 
         if debug: print("Finished json_delta.udiff()"
                         + " at "+ str(datetime.datetime.utcnow()) +"\n")
@@ -208,9 +226,7 @@ def save_json_diff(comparison_diffs, file_start, file_end, file_format = 'json')
     else:  # yaml
         diffs_dump = yaml.dump(comparison_diffs, default_flow_style=False, explicit_start=True)
 
-    diffs_dump = diffs_dump.replace("\\n","\n")   # Newline
-    diffs_dump = diffs_dump.replace("\\\"","\"")  # Double quote
-    diffs_dump = diffs_dump.replace("\\\'","\'")  # Single quote
+    diffs_dump = diffs_dump.replace("!~","\n")   # Hidden newline
     with open(file_name, "w") as text_file:
         print("{}".format(diffs_dump), file=text_file)
 
