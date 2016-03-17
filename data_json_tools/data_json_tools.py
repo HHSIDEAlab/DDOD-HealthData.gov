@@ -18,6 +18,62 @@ debug = False
 
 
 
+#=== Merges dictionaries, making keys occuring multiple times into lists
+def merge_dict(dict_one, dict_two):
+    merged_dict = {}
+    if not dict_one:  return dict_two
+    if not dict_two:  return dict_one
+
+    unique_keys = list(set(list(dict_one.keys()) + list(dict_two.keys())))
+    for key in unique_keys:
+        if key in dict_one and key in dict_two:  # Make it a list then append
+            #: Prevent nested lists
+            if type(dict_one[key]) is not list: dict_one[key] = [dict_one[key]]
+            if type(dict_two[key]) is not list: dict_two[key] = [dict_two[key]]
+            merged_dict[key] = dict_one[key] + dict_two[key]
+        else:
+            merged_dict[key] = dict_one.get(key, dict_two.get(key, None))  # If not 1st then second
+    return merged_dict
+
+
+
+
+# Extract key values, regardless of hierarchy and group multiple key values as lists
+def get_key_list(dataset, key_list):
+    
+    if type(dataset) is list:
+        value_list = {}
+        for item in dataset:
+            value_list_item = get_key_list(item, key_list)
+            value_list = merge_dict(value_list,value_list_item)
+        return value_list
+    
+    elif type(dataset) is dict:
+        value_list = {}
+        for item_key,item_value in dataset.items():
+
+            if item_key in key_list:
+                value_list = merge_dict(value_list,{item_key:item_value})
+            
+            if type(item_value) in [list, dict]:
+                value_list_deep = get_key_list(item_value, key_list)
+                value_list = merge_dict(value_list,value_list_deep)
+                
+
+        return value_list
+    else:
+        return
+
+
+    '''#=== Sample usage ===
+    debug = False
+    key_list = ['c']
+    dataset = {'d':5,'a':1,'b':[{'c':7},[{'c':5},22],3],'c':3}
+    value_list = get_key_list(dataset, key_list)
+    #==> value_list = {'c': [7, 5, 3]}
+    '''
+
+
 def print_same_line(print_string):
     sys.stdout.write("\r" + str(print_string))
     sys.stdout.flush()
