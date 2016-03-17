@@ -17,43 +17,6 @@ global catalog_date_urls
 
 
 
-# Pull out the most important elements to tally on
-def get_keys(dataset):
-    keys = ["bureauCode", "programCode", "publisher", 
-            "landingPage","modified",
-            "Identifier", "downloadURL"]
-    '''
-    Characteristics of non-federal entries for DKAN
-    → Publisher:Name is "State of" or "City of"
-    → downloadURL has non-hhs domain
-    → Identifier has non-hhs domain
-    → Usually "bureauCode": ["009:00"  and "programCode": [ "009:000"
-    '''
-    key_values = []
-    for i,key in enumerate(keys):
-        if key in dataset:
-            key_values.append(dataset[key])
-        else:
-            key_values.append(None)
-    return dict(zip(keys, key_values))
-        
-
-
-# FIXME: Code not yet finished
-# FIXME: Should call get_keys
-# Create a dictionary of values for comparison
-
-def get_key_list(dataset_list):
-    key_list = []
-    for index, dataset in enumerate(dataset_list):
-        key_list.append(get_keys(dataset))
-    #for # List of unique bureauCode values    
-    
-    totals = len(dataset_list)
-    #print get_keys(dataset[0])
-    return key_list
-
-
 
 
 def get_dataset_urls(dataset):
@@ -136,35 +99,6 @@ def get_url_counts(dataset_list):
             
     return url_counts
 
-
-
-def get_dict_counts_by_date(file_name_list,csv_date_list,agency_lookup={}):
-
-    dict_counts_by_date = {}
-
-    #: Load missing dates
-    for index, file_name in enumerate(reversed(file_name_list)):
-        snapshot_file_date = parse_date(file_name)
-
-        if snapshot_file_date not in csv_date_list:
-            print("Loading missing date: "+file_name)
-
-            dataset_list = load_file(file_name)
-            dataset_list = support_old_schema(dataset_list)
-
-            key_list = get_key_list(dataset_list)
-            
-            #agency_counts = get_agency_counts(key_list,agency_lookup)
-            #dict_counts_by_date[snapshot_file_date]=agency_counts
-
-            url_counts = get_url_counts(dataset_list)
-            print("Saving URL counts: "+str(url_counts)+" for "+"snapshot_file_date")
-            dict_counts_by_date[snapshot_file_date]=url_counts
-
-
-            if index > 15: break  # Don't run all for debugging
-            
-    return dict_counts_by_date
 
 
 
