@@ -40,6 +40,7 @@ def get_dataset_url_dict(dataset, agency_lookup={}, index=0):
     if agency_lookup == {}: agency_lookup = tools.load_agency_lookup()
 
     dataset_id           = dataset.get('identifier','(Missing_identifier_'+str(index)+')')
+    dataset_title        = dataset.get('title'     ,'(Missing_title_'     +str(index)+')')
     
     dataset_urls        = get_dataset_urls(dataset)
     
@@ -48,8 +49,10 @@ def get_dataset_url_dict(dataset, agency_lookup={}, index=0):
 
 
     
+    # FIXME: use tools.get_key_list(), because don't have to deal with hierarchy fluctuations
     dataset_url_dict = {}
     dataset_url_dict['id'       ] = dataset_id
+    dataset_url_dict['title'    ] = dataset_title
     dataset_url_dict['agency'   ] = dataset_agency
     dataset_url_dict['url'      ] = dataset_urls
     

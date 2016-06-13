@@ -8,7 +8,6 @@ __author__ = "David Portnoy"
 import requests
 from bs4 import BeautifulSoup
 import json
-import requests
 import json_delta
 import random
 import time
