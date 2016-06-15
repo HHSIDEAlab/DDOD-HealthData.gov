@@ -18,6 +18,28 @@ debug = False
 
 
 
+# Function to save file from web
+def download_file(url, file_path):
+    
+    r = requests.get(url, stream=True)    # NOTE the stream=True parameter
+        
+
+    if r.status_code != 200:
+        print("Problem with URL: "+url+"   Status code: "+str(r.status_code))
+        return 0 # Fail
+    else:
+        if 'content-length' in r.headers: 
+            print("URL: "+url+"   size: "+r.headers['content-length'])
+
+    with open(file_path, 'wb') as f:
+        for chunk in r.iter_content(chunk_size=1024): 
+            if chunk: # filter out keep-alive new chunks
+                f.write(chunk)
+    return 1  # Success
+
+
+
+
 #=== Merges dictionaries, making keys occuring multiple times into lists
 def merge_dict(dict_one, dict_two):
     merged_dict = {}
@@ -103,7 +125,11 @@ def parse_date(file_name):
 
 
 
-def get_file_list(max_load=None, file_date_pattern=[]):
+def get_file_list(max_load=None
+    , file_date_pattern=[]
+    , file_name_prefix='HealthData.gov'
+    , file_name_suffix='[_]data.json'
+    ):
 
     if not file_date_pattern:
         file_date_pattern='[0-9][0-9][0-9][0-9][-][0-9][0-9][-][0-9][0-9]'
@@ -113,7 +139,7 @@ def get_file_list(max_load=None, file_date_pattern=[]):
     if type(file_date_pattern) is not list: file_date_pattern = [file_date_pattern]
     for single_file_date_pattern in file_date_pattern:
         file_pattern   = "snapshots/"
-        file_pattern  += "HealthData.gov[_]"+ single_file_date_pattern +"[_]data.json"
+        file_pattern  += file_name_prefix + single_file_date_pattern + file_name_suffix
         file_list_all += glob.glob(file_pattern)
 
     file_list_all = sorted(file_list_all, reverse=True)
