@@ -5,15 +5,19 @@
 ##              Purpose:  Extract links from data.json files
 ##=============================================================================
 
-from data_json_tools import data_json_tools as tools
+from data_json_tools import data_json_tools
 
 import json
 import requests
 import dateutil.parser as dparser
 import pandas as pd
+import re    # For parsing URLs
+import datetime
 
 
-MAX_DAYS_OLD = 1
+MAX_DAYS_OLD = 0
+FILE_NAME_DELIMITER = '_'
+TARGET_FOLDER = "snapshots"
 
 
 
@@ -36,9 +40,9 @@ PREFIX_URL_LIST = [
      ]
 
 
-
-import re
+# For parsing URLs
 REXEX_URL = r"""(?i)\b((?:https?:(?:/{1,3}|[a-z0-9%])|[a-z0-9.\-]+[.](?:[a-z\u00a1-\uffff]{2,})/)(?:[^\s()<>{}\[\]]+|\([^\s()]*?\([^\s()]+\)[^\s()]*?\)|\([^\s]+?\))+(?:\([^\s()]*?\([^\s()]+\)[^\s()]*?\)|\([^\s]+?\)|[^\s`!()\[\]{};:'".,<>?«»“”‘’])|(?:(?<!@)[a-z0-9]+(?:[.\-][a-z0-9]+)*[.](?:[a-z\u00a1-\uffff]{2,})\b/?(?!@)))"""
+
 
 
 #=== Recursively parse through data.json looking for URLs
@@ -60,8 +64,7 @@ def parse_json(source_name, source_obj, dest_str):
             #: Sometimes there are multiple URLs in the text
             url_list = re.findall(REXEX_URL, target_str)
             
-            if len(url_list) > 1 or (" " in target_str):
-                #print("INTERESTING TEXT ==> "+target_str)
+            #if len(url_list) > 1 or (" " in target_str): print("INTERESTING TEXT ==> "+target_str)
             
             for url in url_list:
                 if url in dest_str:
@@ -92,14 +95,12 @@ def clean_up_dict(dirty_dict):
 
 def get_new_file_name(file_name_prefix, file_name_suffix='data.json'):
     
-    DELIMITER = "_"
-    TARGET_FOLDER = "snapshots"
     
     date_string = datetime.datetime.today().strftime('%Y-%m-%d')
     
-    new_file_name =   TARGET_FOLDER    + "/"        \
-                    + file_name_prefix + DELIMITER  \
-                    + date_string      + DELIMITER  \
+    new_file_name =   TARGET_FOLDER    + "/"                  \
+                    + file_name_prefix + FILE_NAME_DELIMITER  \
+                    + date_string      + FILE_NAME_DELIMITER  \
                     + file_name_suffix
                 
     return new_file_name
@@ -161,9 +162,11 @@ def get_file_age(file_name):
 
 def get_datajson_dict(prefix, url):
     
-    file_list = data_json_tools.get_file_list(max_load=1, file_date_pattern=['*']
-                , file_name_prefix=prefix
-                , file_name_suffix='[_]data.json'
+    file_list = data_json_tools.get_file_list(
+                  max_load          = 1
+                , file_date_pattern = ''     # Use default date pattern
+                , file_name_prefix  = prefix + '['+ FILE_NAME_DELIMITER +']'
+                , file_name_suffix  =          '['+ FILE_NAME_DELIMITER + ']'+ '*.json'
                )
     if file_list:
         file_name = file_list[0]  # Latest only
@@ -187,7 +190,7 @@ def get_datajson_dict(prefix, url):
 
         
     #=== If no prior file and problem with web 
-    if not file_date:
+    if not file_name:
         return False
 
     #=== Otherwise use a file
@@ -213,7 +216,6 @@ dest_str    = json.dumps(hdgov_datajson_dict)
 # Load source json files
 for (prefix,url) in PREFIX_URL_LIST:
     datajson_dict = get_datajson_dict(prefix, url)
-    print(len(datajson_dict))
     
     source_name = prefix
     url_counts[source_name] = {}

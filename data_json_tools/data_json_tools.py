@@ -126,7 +126,7 @@ def parse_date(file_name):
 
 
 def get_file_list(max_load=None
-    , file_date_pattern=[]
+    , file_date_pattern=''
     , file_name_prefix='HealthData.gov'
     , file_name_suffix='[_]data.json'
     ):
