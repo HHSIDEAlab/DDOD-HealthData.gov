@@ -1,0 +1,66 @@
+[
+    {
+      "ignore_url": "https://project-open-data.cio.gov/v1.1/schema",
+      "reason": "Describes schema"
+    },
+    {
+      "ignore_url": "https://project-open-data.cio.gov/v1.1/schema/catalog.json",
+      "reason": "Describes schema"
+    },
+    {
+      "ignore_url": "https://project-open-data.cio.gov/v1.1/schema/catalog.jsonld",
+      "reason": "Describes schema"
+    },
+    {
+      "ignore_url": "http://opendefinition.org/licenses/odc-odbl/",
+      "reason": "Describes license"
+    },
+    {
+      "ignore_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "reason": "Describes license"
+    },
+    {
+      "ignore_url": "http://www.resdac.org/cms-data/request/cms-data-request-center",
+      "reason": "Describes license"
+    },
+    {
+      "ignore_url": "http:\/\/www.resdac.org\/cms-data\/request\/cms-data-request-center",
+      "reason": "Describes license"
+    },
+    {
+      "ignore_url": "http://www.dati.gov.it/iodl/2.0/",
+      "reason": "Describes license"
+    },
+    {
+      "ignore_url": "http://data.gov/data.json",
+      "reason": "Describes datafile"
+    },
+    {
+      "ignore_url": "http://healthdata.gov/data.json",
+      "reason": "Describes datafile"
+    },
+    {
+      "ignore_url": "https://open.fda.gov/data.json",
+      "reason": "Describes datafile"
+    },
+    {
+      "ignore_url": "https://data.cdc.gov/data.json",
+      "reason": "Describes datafile"
+    },
+    {
+      "ignore_url": "https://data.cms.gov/data.json",
+      "reason": "Describes datafile"
+    },
+    {
+      "ignore_url": "http://dnav.cms.gov/Service/DataNavService.svc/json",
+      "reason": "Describes datafile"
+    },
+    {
+      "ignore_url": "http:\/\/cms.gov\/mmrr",
+      "reason": "Program URL that appears in 1/4 of all dnav.cms.gov entries"
+    },
+    {
+      "ignore_url": "http://cms.gov/mmrr",
+      "reason": "Program URL that appears in 1/4 of all dnav.cms.gov entries"
+    }
+]
