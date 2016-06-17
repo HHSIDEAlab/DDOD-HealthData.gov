@@ -6,14 +6,42 @@
 
 import json
 import requests
+import copy     # To deepcopy dictionary
+import datetime
 
 
-BASE_URL = 'http://ddod.healthdata.gov/'
-smw_url  = BASE_URL + 'api.php?action=query'
+TARGET_FOLDER = "snapshots"
+PREFIX        = 'ddod.healthdata.gov'
+FILE_NAME_DELIMITER = '_'
+
+
+SMW_BASE_URL = 'http://ddod.healthdata.gov/'
+smw_url  = SMW_BASE_URL + 'api.php?action=query'
 smw_url += '&generator=allpages'                 # Generator
 smw_url += '&prop=links|extlinks|categories'     # Properties to show
 smw_url += '&gaplimit=10000&ellimit=10000&cllimit=10000&pllimit=10000'  # Avoid limits by property type
-smw_url += '&format=json&gapfilter=nonredirects&continue='  # Format and paging
+smw_url += '&format=json&gapfilterredir=nonredirects&continue='  # Format and paging
+
+
+
+
+def save_datajson_to_new_file_name(datajson_text, file_name_prefix, file_name_suffix='data.json'):
+    
+    date_string = datetime.datetime.today().strftime('%Y-%m-%d')
+    
+    new_file_name =   TARGET_FOLDER    + "/"                  \
+                    + file_name_prefix + FILE_NAME_DELIMITER  \
+                    + date_string      + FILE_NAME_DELIMITER  \
+                    + file_name_suffix
+                
+    with open(new_file_name, 'w') as file:
+        file.write(datajson_text)
+
+    return new_file_name
+
+
+
+
 
 
 def get_api_result(source_url):
@@ -26,7 +54,9 @@ def get_api_result(source_url):
 
 
 def parse_smw_results(rget_json):
-    ddod_smw_links = []
+    
+    rget_json_use_cases = copy.deepcopy(rget_json)  # Extract just the use case entries for saving
+    ddod_smw_links      = []
     
     if not 'query' in rget_json:          return
     if not 'pages' in rget_json['query']: return
@@ -49,6 +79,7 @@ def parse_smw_results(rget_json):
                 
         #: Only proceed if this page is a Use Case
         if not "Use Case" in str(curr_categories):
+            rget_json_use_cases['query']['pages'].pop(pageid,None)  # Remove irrelevant pages to save for later
             continue
 
         #: Remove nesting and prefixed from categories
@@ -78,7 +109,7 @@ def parse_smw_results(rget_json):
                  ,'extlinks':None
                 })
 
-    return ddod_smw_links
+    return (ddod_smw_links, rget_json_use_cases)
 
 
 
@@ -161,9 +192,12 @@ def extract_counts_by_agency(ddod_smw_links):
         
 
 rget_json = get_api_result(smw_url)
-ddod_smw_links = parse_smw_results(rget_json)
+(ddod_smw_links, rget_json_use_cases) = parse_smw_results(rget_json)
 
 print("Loaded "+ str(len(ddod_smw_links)) +" records")
+
+datajson_text = json.dumps(rget_json_use_cases)
+save_datajson_to_new_file_name(datajson_text, PREFIX)
 
 
 # save_list_to_csv("ddod_smw_links.csv", ddod_smw_links)
