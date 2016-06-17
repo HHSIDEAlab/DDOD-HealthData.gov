@@ -213,7 +213,7 @@ def get_datajson_dict(prefix, url):
     return datajson_dict  # From file
     
 
-    
+
     
     
 # Load HD.gov json
@@ -229,6 +229,8 @@ dest_str    = json.dumps(hdgov_datajson_dict)
 ignore_url_json = get_datajson_from_file(IGNORE_URL_FILE_NAME)
 ignore_url_str  = json.dumps(ignore_url_json)
 
+aggregate_source_str = ''
+
 
 #: Loop through sources
 # Load source json files
@@ -240,7 +242,10 @@ for (prefix,url) in PREFIX_URL_LIST:
     url_counts[source_name]['Found']    = {}
     url_counts[source_name]['NotFound'] = {}
     url_counts[source_name]['Ignored']  = {}
+    
     parse_json(prefix, datajson_dict, dest_str)
+    
+    aggregate_source_str += json.dumps(datajson_dict)
     
 
 
@@ -260,3 +265,34 @@ for key, value in url_counts.items():
     
 df = pd.DataFrame(data=url_results)
 print(df)
+
+
+
+
+#=== Obtain counts unique to target catalog
+aggregate_source_file_name_prefix = 'federated_sources'
+source_name = aggregate_source_file_name_prefix
+url_counts[source_name] = {}
+url_counts[source_name]['Found']    = {}
+url_counts[source_name]['NotFound'] = {}
+url_counts[source_name]['Ignored']  = {}
+save_datajson_to_new_file_name(
+      aggregate_source_str
+    , aggregate_source_file_name_prefix
+    , file_name_suffix='data.json'
+    )
+parse_json(
+      aggregate_source_file_name_prefix
+    , hdgov_datajson_dict
+    , aggregate_source_str
+    )
+data_dest      = 'HealthData.gov'
+data_source    = 'federated_sources'
+search_results = url_counts[data_source]
+num_found     = len(search_results['Found'])
+num_not_found = len(search_results['NotFound'])
+num_ignored   = len(search_results['Ignored'])
+num_total     = num_found + num_not_found + num_ignored
+
+print(str(num_not_found)  + " of the " + str(num_total) + " dataset links in " + data_dest + " are not found on upstream sources")
+
