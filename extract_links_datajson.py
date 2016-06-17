@@ -37,7 +37,8 @@ PREFIX_URL_LIST = [
      ,('data.cms.gov' ,'http://data.cms.gov/data.json' )
      ,('dnav.cms.gov' ,'http://dnav.cms.gov/Service/DataNavService.svc/json')
      ,('ddod.healthdata.gov',ERROR_URL)  # Rather than using smw_url, it should fail, so that the file from parse_ddod_smw_content is used
-     ,('HealthData.gov','http://healthdata.gov/data.json')
+     ,('federated_sources',ERROR_URL) 
+     #,('HealthData.gov','http://healthdata.gov/data.json')
      #,('Data.gov' ,    'http://data.gov/data.json')
      ]
 
@@ -73,14 +74,19 @@ def parse_json(source_name, source_obj, dest_str):
             
             for url in url_list:
                 if url in ignore_url_str:
-                    url_counts[source_name]["Ignored"][url]    = url_counts[source_name]["Ignored"].get(url,0) + 1
+                    url_harvest_counts[source_name]["Ignored"][url]    = url_harvest_counts[source_name]["Ignored"].get(url,0) + 1
+                    url_ignored[url]              = url_ignored.get(url,{})
+                    url_ignored[url][source_name] = url_ignored[url].get(source_name,0) +1
                     continue
-                    
+                
+                url_counts[url]              = url_counts.get(url,{})
+                url_counts[url][source_name] = url_counts[url].get(source_name,0) +1
+
                 if url in dest_str:
-                    url_counts[source_name]["Found"][url]    = url_counts[source_name]["Found"].get(url,0) + 1
+                    url_harvest_counts[source_name]["Found"][url]    = url_harvest_counts[source_name]["Found"].get(url,0) + 1
                     #print(url + " found")
                 else:
-                    url_counts[source_name]["NotFound"][url] = url_counts[source_name]["NotFound"].get(url,0) + 1
+                    url_harvest_counts[source_name]["NotFound"][url] = url_harvest_counts[source_name]["NotFound"].get(url,0) + 1
                     #print(url + " not found")
             
     else:
@@ -216,10 +222,10 @@ def get_datajson_dict(prefix, url):
     if not file_name or file_age > MAX_DAYS_OLD:
 
         datajson_text = get_datajson_from_web(url)
-        datajson_text = clean_up_datajson(datajson_text)
 
 
         if datajson_text:
+            datajson_text = clean_up_datajson(datajson_text)
             new_file_name = save_datajson_to_new_file_name(datajson_text, prefix)
             datajson_dict = json.loads(datajson_text)
             return datajson_dict  # From web
@@ -246,8 +252,8 @@ hdgov_datajson_str  = clean_up_datajson(hdgov_datajson_dict, output='str')
 
 
 #: Set one time values
-url_counts  = {}
-url_counts  = {}
+url_harvest_counts  = {}
+url_harvest_counts  = {}
 dest_str    = hdgov_datajson_str
 
 
@@ -255,7 +261,9 @@ ignore_url_json = get_datajson_from_file(IGNORE_URL_FILE_NAME)
 ignore_url_str  = clean_up_datajson(ignore_url_json, output='str')
 
 
-aggregate_source_str = ''
+aggregate_source_dict = {}
+url_counts  = {}
+url_ignored = {}
 
 
 #: Loop through sources
@@ -264,49 +272,65 @@ for (prefix,url) in PREFIX_URL_LIST:
     datajson_dict = get_datajson_dict(prefix, url)
     
     source_name = prefix
-    url_counts[source_name] = {}
-    url_counts[source_name]['Found']    = {}
-    url_counts[source_name]['NotFound'] = {}
-    url_counts[source_name]['Ignored']  = {}
+    url_harvest_counts[source_name] = {}
+    url_harvest_counts[source_name]['Found']    = {}
+    url_harvest_counts[source_name]['NotFound'] = {}
+    url_harvest_counts[source_name]['Ignored']  = {}
     
     parse_json(prefix, datajson_dict, dest_str)
     
-    aggregate_source_str += json.dumps(datajson_dict)
+    if not aggregate_source_dict:
+        aggregate_source_dict = dict(aggregate_source_dict)   # 1st value
+    else:
+        aggregate_source_dict = aggregate_source_dict.update(datajson_dict)
     
 
+#=== Save federated sources to file for future use
+aggregate_source_str = json.dumps(aggregate_source_str)
+aggregate_source_str = clean_up_datajson(aggregate_source_str)
 
-#=== Format results 
-url_results = []
-for key, value in url_counts.items():
-    data_source    = key
-    search_results = value
-    num_found     = len(search_results['Found'])
-    num_not_found = len(search_results['NotFound'])
-    num_ignored   = len(search_results['Ignored'])
-    url_results.append({ "Data Source": data_source
-                        ,"Found"      : num_found
-                        ,"Not Found"  : num_not_found
-                        ,"Ignored"    : num_ignored
-                       })
-    
-df = pd.DataFrame(data=url_results)
-print(df)
-
-
-
-
-#=== Obtain counts unique to target catalog
 aggregate_source_file_name_prefix = 'federated_sources'
 source_name = aggregate_source_file_name_prefix
-url_counts[source_name] = {}
-url_counts[source_name]['Found']    = {}
-url_counts[source_name]['NotFound'] = {}
-url_counts[source_name]['Ignored']  = {}
 save_datajson_to_new_file_name(
       aggregate_source_str
     , aggregate_source_file_name_prefix
     , file_name_suffix='data.json'
     )
+parse_json(source_name, aggregate_source_dict, dest_str)
+    
+
+
+#=== Format results 
+url_results = []
+for key, value in url_harvest_counts.items():
+    data_source    = key
+    search_results = value
+    num_found     = len(search_results['Found'])
+    num_not_found = len(search_results['NotFound'])
+    num_ignored   = len(search_results['Ignored'])
+    url_results.append({ "Data_Source": data_source
+                        ,"Total"      : num_found + num_not_found
+                        ,"Found"      : num_found
+                        ,"Not_Found"  : num_not_found
+                        ,"Ignored"    : num_ignored
+                       })
+
+url_results_columns = ['Data_Source', 'Total',  'Found',  'Not_Found',  'Ignored']
+df_url_harvest_counts = pd.DataFrame(data=url_results, columns=url_results_columns)
+print(df_url_harvest_counts)
+df_url_harvest_counts.to_csv('df_url_harvest_counts.csv', sep='\t')
+
+
+
+
+#=== Obtain counts unique to target catalog
+aggregate_source_file_name_prefix = 'healthdata.gov_only'
+source_name                       = aggregate_source_file_name_prefix
+
+url_harvest_counts[source_name] = {}
+url_harvest_counts[source_name]['Found']    = {}
+url_harvest_counts[source_name]['NotFound'] = {}
+url_harvest_counts[source_name]['Ignored']  = {}
 parse_json(
       aggregate_source_file_name_prefix
     , hdgov_datajson_dict
@@ -314,11 +338,22 @@ parse_json(
     )
 data_dest      = 'HealthData.gov'
 data_source    = 'federated_sources'
-search_results = url_counts[data_source]
+search_results = url_harvest_counts[data_source]
 num_found     = len(search_results['Found'])
 num_not_found = len(search_results['NotFound'])
 num_ignored   = len(search_results['Ignored'])
-num_total     = num_found + num_not_found + num_ignored
+num_total     = num_found + num_not_found # + num_ignored
 
-print(str(num_not_found)  + " of the " + str(num_total) + " dataset links in " + data_dest + " are not found on upstream sources")
+print("\n\n" + str(num_not_found)  + " of the " + str(num_total) + " dataset links in " + data_dest + " are not found on upstream sources")
 
+
+
+df_url_counts = pd.DataFrame(data=url_counts).T.fillna(0)
+df_url_counts.to_csv('url_counts_by_source.csv', sep='\t')
+#print(df_url_counts)
+
+
+
+df_url_ignored = pd.DataFrame(data=url_ignored).T.fillna(0)
+df_url_ignored.to_csv('url_ignored_by_source.csv', sep='\t')
+#print(df_url_ignored)
