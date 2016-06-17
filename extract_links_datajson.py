@@ -28,21 +28,24 @@ smw_url += '&prop=links|extlinks|categories'     # Properties to show
 smw_url += '&gaplimit=10000&ellimit=10000&cllimit=10000&pllimit=10000'  # Avoid limits by property type
 smw_url += '&format=json&gapfilterredir=nonredirects&continue='  # Format and paging
 
-
+ERROR_URL = 'http://httpbin.org/status/404'
 
 PREFIX_URL_LIST = [
       ('open.fda.gov' ,'https://open.fda.gov/data.json')
      ,('data.cdc.gov' ,'https://data.cdc.gov/data.json')
      ,('data.cms.gov' ,'http://data.cms.gov/data.json' )
      ,('dnav.cms.gov' ,'http://dnav.cms.gov/Service/DataNavService.svc/json')
-     ,('ddod.healthdata.gov',smw_url)
-     #,('HealthData.gov','http://healthdata.gov/data.json')
+     ,('ddod.healthdata.gov',ERROR_URL)  # Rather than using smw_url, it should fail, so that the file from parse_ddod_smw_content is used
+     ,('HealthData.gov','http://healthdata.gov/data.json')
      #,('Data.gov' ,    'http://data.gov/data.json')
      ]
 
 
 # For parsing URLs
-REXEX_URL = r"""(?i)\b((?:https?:(?:/{1,3}|[a-z0-9%])|[a-z0-9.\-]+[.](?:[a-z\u00a1-\uffff]{2,})/)(?:[^\s()<>{}\[\]]+|\([^\s()]*?\([^\s()]+\)[^\s()]*?\)|\([^\s]+?\))+(?:\([^\s()]*?\([^\s()]+\)[^\s()]*?\)|\([^\s]+?\)|[^\s`!()\[\]{};:'".,<>?«»“”‘’])|(?:(?<!@)[a-z0-9]+(?:[.\-][a-z0-9]+)*[.](?:[a-z\u00a1-\uffff]{2,})\b/?(?!@)))"""
+REXEX_URL  = r"""(?i)\b((?:https?:(?:/{1,3}|[a-z0-9%])|[a-z0-9.\-]+[.](?:com|net|org|edu|gov|mil)/)"""
+REXEX_URL += r"""(?:[^\s()<>{}\[\]]+|\([^\s()]*?\([^\s()]+\)[^\s()]*?\)|\([^\s]+?\))"""
+REXEX_URL += r"""+(?:\([^\s()]*?\([^\s()]+\)[^\s()]*?\)|\([^\s]+?\)|[^\s`!()\[\]{};:'".,<>?«»“”‘’])"""
+REXEX_URL += r"""|(?:(?<!@)[a-z0-9]+(?:[.\-][a-z0-9]+)*[.](?:com|net|org|edu|gov|mil)\b/?(?!@)))"""
 
 
 
@@ -51,11 +54,11 @@ def parse_json(source_name, source_obj, dest_str):
     
     if isinstance(source_obj, dict):
         for key, value in source_obj.items():
-            parse_json(prefix, value, dest_str)
+            parse_json(source_name, value, dest_str)
     
     if isinstance(source_obj, list):
         for value in source_obj:
-            parse_json(prefix, value, dest_str)
+            parse_json(source_name, value, dest_str)
     
     #: Strings may contain one or more URLs
     if isinstance(source_obj, str):
@@ -69,10 +72,10 @@ def parse_json(source_name, source_obj, dest_str):
             
             for url in url_list:
                 if url in dest_str:
-                    url_counts[source_name]["Found"].add(url)
+                    url_counts[source_name]["Found"][url]    = url_counts[source_name]["Found"].get(url,0) + 1
                     #print(url + " found")
                 else:
-                    url_counts[source_name]["NotFound"].add(url)
+                    url_counts[source_name]["NotFound"][url] = url_counts[source_name]["NotFound"].get(url,0) + 1
                     #print(url + " not found")
             
     else:
@@ -226,8 +229,8 @@ for (prefix,url) in PREFIX_URL_LIST:
     
     source_name = prefix
     url_counts[source_name] = {}
-    url_counts[source_name]['Found']    = set()   # Use set to avoid duplicates
-    url_counts[source_name]['NotFound'] = set()   # Use set to avoid duplicates
+    url_counts[source_name]['Found']    = {}
+    url_counts[source_name]['NotFound'] = {}
     parse_json(prefix, datajson_dict, dest_str)
     
 
