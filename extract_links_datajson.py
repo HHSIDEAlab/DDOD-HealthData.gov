@@ -90,14 +90,33 @@ def parse_json(source_name, source_obj, dest_str):
 
 
 
-def clean_up_dict(dirty_dict):
+def clean_up_datajson(dirty_obj, output=None):
+    
+    dirty_obj_type = type(dirty_obj)
 
-    working_str = json.dumps(dirty_dict)
+    #: First convert to string to manipulate
+    if dirty_obj_type == 'dict':
+        dirty_obj_str = json.dumps(dirty_obj)
+    else:
+        if not dirty_obj_type == 'str':
+            dirty_obj_str = str(dirty_obj)   # Try to convert to string
+
+    
+    working_str = dirty_obj_str
     working_str = working_str.replace("\\/","/")
     working_str = working_str.lower()
+
     
-    clean_dict = json.loads(working_str)
-    return clean_dict
+    #: If different output type not specified, keep it same
+    if not output:
+        output = dirty_obj_type
+        
+    if output == 'dict':
+        return json.loads(working_str)
+    else:
+        return working_str
+    
+
 
 
 
@@ -197,6 +216,8 @@ def get_datajson_dict(prefix, url):
     if not file_name or file_age > MAX_DAYS_OLD:
 
         datajson_text = get_datajson_from_web(url)
+        datajson_text = clean_up_datajson(datajson_text)
+
 
         if datajson_text:
             new_file_name = save_datajson_to_new_file_name(datajson_text, prefix)
@@ -210,6 +231,7 @@ def get_datajson_dict(prefix, url):
 
     #=== Otherwise use a file
     datajson_dict = get_datajson_from_file(file_name)
+    datajson_dict = clean_up_datajson(datajson_dict)
     return datajson_dict  # From file
     
 
@@ -218,16 +240,20 @@ def get_datajson_dict(prefix, url):
     
 # Load HD.gov json
 hdgov_datajson_dict = get_datajson_dict('HealthData.gov','http://healthdata.gov/data.json')
-hdgov_datajson_dict = clean_up_dict(hdgov_datajson_dict)
+hdgov_datajson_str  = clean_up_datajson(hdgov_datajson_dict, output='str')
+
 
 
 
 #: Set one time values
-url_counts = {}
-dest_str    = json.dumps(hdgov_datajson_dict)
+url_counts  = {}
+url_counts  = {}
+dest_str    = hdgov_datajson_str
+
 
 ignore_url_json = get_datajson_from_file(IGNORE_URL_FILE_NAME)
-ignore_url_str  = json.dumps(ignore_url_json)
+ignore_url_str  = clean_up_datajson(ignore_url_json, output='str')
+
 
 aggregate_source_str = ''
 
