@@ -1,0 +1,309 @@
+categories,pageid,title,extlinks
+,195,Use Case 56: Leverage provider network standard for better insurance plan selection,http://bayeshack.org/health-and-human-services.html
+,195,Use Case 56: Leverage provider network standard for better insurance plan selection,http://www.bayesimpact.org/
+,195,Use Case 56: Leverage provider network standard for better insurance plan selection,https://github.com/CMSgov/QHP-provider-formulary-APIs
+,195,Use Case 56: Leverage provider network standard for better insurance plan selection,https://github.com/demand-driven-open-data/ddod-intake/issues/56
+CMS,166,Use Case 38: ICD Patterns Aggregated per NPI,https://github.com/demand-driven-open-data/ddod-intake/issues/38
+CMS,39,Use Case 27: Patient satisfaction scores (CAHPS Hospital Survey),http://www.cms.gov/Newsroom/MediaReleaseDatabase/Fact-sheets/2015-Fact-sheets-items/2015-04-16.html
+CMS,39,Use Case 27: Patient satisfaction scores (CAHPS Hospital Survey),https://github.com/demand-driven-open-data/ddod-intake/issues/27
+FDA,73,Use Case 12: Recalled FDA-regulated products actually turned in,http://www.fda.gov/Safety/Recalls/
+FDA,73,Use Case 12: Recalled FDA-regulated products actually turned in,"https://docs.google.com/spreadsheets/d/1acv8kB-HTtMxvuM7HPtMrNx6vIqjpWvjeAUCRoVS_-4/gviz/tq?gid=0&pli=1&tqx=out:html&tq=SELECT%20B,%20D,%20E,%20F%20where%20A=12%20ORDER%20BY%20B"
+FDA,73,Use Case 12: Recalled FDA-regulated products actually turned in,https://github.com/demand-driven-open-data/ddod-intake/issues/12
+CMS,40,Use Case 26: Analyze drug cost trends from filled Medicare Part D prescriptions,http://www.cms.gov/Research-Statistics-Data-and-Systems/Computer-Data-and-Systems/Privacy/Researchers.html
+CMS,40,Use Case 26: Analyze drug cost trends from filled Medicare Part D prescriptions,http://www.cms.gov/Research-Statistics-Data-and-Systems/Downloadable-Public-Use-Files/SynPUFs/index.html
+CMS,40,Use Case 26: Analyze drug cost trends from filled Medicare Part D prescriptions,http://www.cms.gov/Research-Statistics-Data-and-Systems/Files-for-Order/NonIdentifiableDataFiles/Downloads/PUFOrderFormWorksheet.zip
+CMS,40,Use Case 26: Analyze drug cost trends from filled Medicare Part D prescriptions,http://www.cms.gov/Research-Statistics-Data-and-Systems/Files-for-Order/NonIdentifiableDataFiles/PrescriptionDrugPlanFormularyPharmacyNetworkandPricingInformationFiles.html
+CMS,40,Use Case 26: Analyze drug cost trends from filled Medicare Part D prescriptions,http://www.cms.gov/Research-Statistics-Data-and-Systems/Statistics-Trends-and-Reports/BSAPUFS/BSA_PDE_PUF.html
+CMS,40,Use Case 26: Analyze drug cost trends from filled Medicare Part D prescriptions,http://www.dol.gov/ebsa/pdf/acdanzon061914.pdf
+CMS,40,Use Case 26: Analyze drug cost trends from filled Medicare Part D prescriptions,http://www.healthdata.gov/data/dataset/basic-stand-alone-medicare-prescription-drug-events-puf
+CMS,40,Use Case 26: Analyze drug cost trends from filled Medicare Part D prescriptions,http://www.healthdata.gov/data/dataset/cms-2008-2010-data-entrepreneurs-synthetic-public-use-file
+CMS,40,Use Case 26: Analyze drug cost trends from filled Medicare Part D prescriptions,http://www.resdac.org/about-resdac
+CMS,40,Use Case 26: Analyze drug cost trends from filled Medicare Part D prescriptions,http://www.resdac.org/cms-data/RIF
+CMS,40,Use Case 26: Analyze drug cost trends from filled Medicare Part D prescriptions,http://www.resdac.org/cms-data/files/pde
+CMS,40,Use Case 26: Analyze drug cost trends from filled Medicare Part D prescriptions,http://www.resdac.org/cms-data/request/innovator-research
+CMS,40,Use Case 26: Analyze drug cost trends from filled Medicare Part D prescriptions,http://www.resdac.org/cms-data/request/materials/profit-funding
+CMS,40,Use Case 26: Analyze drug cost trends from filled Medicare Part D prescriptions,http://www.resdac.org/news/cms-announces-entrepreneurs-and-innovators-access-medicare-data/2015/06
+CMS,40,Use Case 26: Analyze drug cost trends from filled Medicare Part D prescriptions,http://www.resdac.org/sites/resdac.org/files/Getting%20Started%20with%20Requesting%20Research%20Identifiable%20Data%20(Slides).pdf
+CMS,40,Use Case 26: Analyze drug cost trends from filled Medicare Part D prescriptions,http://www.rxdata.net/
+CMS,40,Use Case 26: Analyze drug cost trends from filled Medicare Part D prescriptions,https://github.com/demand-driven-open-data/ddod-intake/issues/26
+CMS,40,Use Case 26: Analyze drug cost trends from filled Medicare Part D prescriptions,https://github.com/imedicare
+CMS,40,Use Case 26: Analyze drug cost trends from filled Medicare Part D prescriptions,https://github.com/rxdata
+CMS,40,Use Case 26: Analyze drug cost trends from filled Medicare Part D prescriptions,https://imedicare.com/
+CMS,40,Use Case 26: Analyze drug cost trends from filled Medicare Part D prescriptions,https://www.ccwdata.org
+CMS,40,Use Case 26: Analyze drug cost trends from filled Medicare Part D prescriptions,https://www.ccwdata.org/cs/groups/public/documents/datadictionary/data_dict_pde.xls
+CMS,40,Use Case 26: Analyze drug cost trends from filled Medicare Part D prescriptions,https://www.propublica.org/
+CMS,23,Use Case 31: Explaining utilization with demographic data,http://factfinder.census.gov/faces/nav/jsf/pages/searchresults.xhtml?refresh=t
+CMS,23,Use Case 31: Explaining utilization with demographic data,http://www.cms.gov/Research-Statistics-Data-and-Systems/Statistics-Trends-and-Reports/Medicare-Geographic-Variation/GV_PUF.html
+CMS,23,Use Case 31: Explaining utilization with demographic data,http://www.dartmouthatlas.org/tools/downloads.aspx?tab=39
+CMS,23,Use Case 31: Explaining utilization with demographic data,http://www.qualityindicators.ahrq.gov/Modules/pqi_resources.aspx
+CMS,23,Use Case 31: Explaining utilization with demographic data,"https://docs.google.com/spreadsheets/d/1acv8kB-HTtMxvuM7HPtMrNx6vIqjpWvjeAUCRoVS_-4/gviz/tq?gid=0&pli=1&tqx=out:html&tq=SELECT%20B,%20D,%20E,%20F%20where%20A=31%20ORDER%20BY%20B"
+CMS,23,Use Case 31: Explaining utilization with demographic data,https://github.com/demand-driven-open-data/ddod-intake/issues/31
+"FDA,FDA-CDER,FDA-CDER-OSP",122,Use Case 34: Cost of drug approval process,http://chess.bsd.uchicago.edu/events/documents/Rao_InvestmentPharmaceutical.pdf
+"FDA,FDA-CDER,FDA-CDER-OSP",122,Use Case 34: Cost of drug approval process,http://www.brookings.edu/~/media/events/2015/03/13-state-biomedical-innovation/313-master-deck.pdf
+"FDA,FDA-CDER,FDA-CDER-OSP",122,Use Case 34: Cost of drug approval process,http://www.fda.gov/Drugs/DevelopmentApprovalProcess/HowDrugsareDevelopedandApproved/ApprovalApplications/InvestigationalNewDrugINDApplication/default.htm
+"FDA,FDA-CDER,FDA-CDER-OSP",122,Use Case 34: Cost of drug approval process,http://www.fda.gov/Drugs/DevelopmentApprovalProcess/HowDrugsareDevelopedandApproved/ApprovalApplications/NewDrugApplicationNDA/default.htm
+"FDA,FDA-CDER,FDA-CDER-OSP",122,Use Case 34: Cost of drug approval process,http://www.fda.gov/Drugs/DevelopmentApprovalProcess/HowDrugsareDevelopedandApproved/DrugandBiologicApprovalReports/INDActivityReports/ucm373554.htm
+"FDA,FDA-CDER,FDA-CDER-OSP",122,Use Case 34: Cost of drug approval process,http://www.fda.gov/ForIndustry/UserFees/PrescriptionDrugUserFee/ucm119248.htm
+"FDA,FDA-CDER,FDA-CDER-OSP",122,Use Case 34: Cost of drug approval process,http://www.fda.gov/ForIndustry/UserFees/PrescriptionDrugUserFee/ucm164346.htm
+"FDA,FDA-CDER,FDA-CDER-OSP",122,Use Case 34: Cost of drug approval process,http://www.fda.gov/downloads/AboutFDA/ReportsManualsForms/Reports/BudgetReports/UCM301553.pdf
+"FDA,FDA-CDER,FDA-CDER-OSP",122,Use Case 34: Cost of drug approval process,http://www.fda.gov/downloads/Drugs/DevelopmentApprovalProcess/HowDrugsareDevelopedandApproved/DrugandBiologicApprovalReports/INDActivityReports/UCM425603.pdf
+"FDA,FDA-CDER,FDA-CDER-OSP",122,Use Case 34: Cost of drug approval process,http://www.fda.gov/downloads/Drugs/DevelopmentApprovalProcess/HowDrugsareDevelopedandApproved/DrugandBiologicApprovalReports/INDActivityReports/UCM435449.pdf
+"FDA,FDA-CDER,FDA-CDER-OSP",122,Use Case 34: Cost of drug approval process,http://www.fda.gov/downloads/Drugs/DevelopmentApprovalProcess/HowDrugsareDevelopedandApproved/DrugandBiologicApprovalReports/UCM165256.pdf
+"FDA,FDA-CDER,FDA-CDER-OSP",122,Use Case 34: Cost of drug approval process,http://www.fda.gov/downloads/ForIndustry/UserFees/PrescriptionDrugUserFee/UCM350567.pdf
+"FDA,FDA-CDER,FDA-CDER-OSP",122,Use Case 34: Cost of drug approval process,https://citeline.com/wp-content/uploads/2015/02/CITIF_RD_AnnualReview_031715.pdf
+"FDA,FDA-CDER,FDA-CDER-OSP",122,Use Case 34: Cost of drug approval process,https://clinicaltrials.gov/ct2/manage-recs/faq
+"FDA,FDA-CDER,FDA-CDER-OSP",122,Use Case 34: Cost of drug approval process,https://github.com/demand-driven-open-data/ddod-intake/issues/34
+"FDA,FDA-CDRH",19,Use Case 32: Medical device data capture and exchange,http://www.aha.org/AHA
+"FDA,FDA-CDRH",19,Use Case 32: Medical device data capture and exchange,http://www.ahjonline.com/article/S0002-8703(14)00405-0/abstract
+"FDA,FDA-CDRH",19,Use Case 32: Medical device data capture and exchange,http://www.ahrmm.org/AHRMM
+"FDA,FDA-CDRH",19,Use Case 32: Medical device data capture and exchange,http://www.brookings.edu/~/media/research/files/papers/2015/02/23-medical-device-policy-surveillance/med-device-reportweb.pdf
+"FDA,FDA-CDRH",19,Use Case 32: Medical device data capture and exchange,http://www.fda.gov/MedicalDevices/DeviceRegulationandGuidance/UniqueDeviceIdentification/
+"FDA,FDA-CDRH",19,Use Case 32: Medical device data capture and exchange,http://www.fda.gov/MedicalDevices/Safety/CDRHPostmarketSurveillance/default.htm
+"FDA,FDA-CDRH",19,Use Case 32: Medical device data capture and exchange,http://www.fda.gov/MedicalDevices/ScienceandResearch/EpidemiologyMedicalDevices/MedicalDeviceEpidemiologyNetworkMDEpiNet/default.htm
+"FDA,FDA-CDRH",19,Use Case 32: Medical device data capture and exchange,http://www.fda.gov/downloads/MedicalDevices/DeviceRegulationandGuidance/UniqueDeviceIdentification/BenefitsofaUDIsystem/UCM416128.pdf
+"FDA,FDA-CDRH",19,Use Case 32: Medical device data capture and exchange,http://www.gs1us.org/resources/standards
+"FDA,FDA-CDRH",19,Use Case 32: Medical device data capture and exchange,http://www.healthcareitnews.com/news/5-heavy-hitters-take-lead-udi
+"FDA,FDA-CDRH",19,Use Case 32: Medical device data capture and exchange,http://www.mdepinet.org/index.php/smart-think-tank-feb-2015/
+"FDA,FDA-CDRH",19,Use Case 32: Medical device data capture and exchange,http://www.mdepinet.org/wp-content/uploads/Oct_14_S4_3-Drozda.pdf
+"FDA,FDA-CDRH",19,Use Case 32: Medical device data capture and exchange,https://github.com/demand-driven-open-data/ddod-intake/issues/32
+FDA,71,Use Case 13: Improve data format of FDA warning letters,http://www.fda.gov/iceci/enforcementactions/WarningLetters/default.htm
+FDA,71,Use Case 13: Improve data format of FDA warning letters,"https://docs.google.com/spreadsheets/d/1acv8kB-HTtMxvuM7HPtMrNx6vIqjpWvjeAUCRoVS_-4/gviz/tq?gid=0&pli=1&tqx=out:html&tq=SELECT%20B,%20D,%20E,%20F%20where%20A=13%20ORDER%20BY%20B"
+FDA,71,Use Case 13: Improve data format of FDA warning letters,https://github.com/demand-driven-open-data/ddod-intake/issues/13
+CMS,63,Use Case 19: Out-of-network patient leakage impact,http://downloads.cms.gov/FOIA/Data-Request-Physician-Referrals-Technical-Requirements.pdf
+CMS,63,Use Case 19: Out-of-network patient leakage impact,http://downloads.cms.gov/FOIA/ReferralPatterns.pdf
+CMS,63,Use Case 19: Out-of-network patient leakage impact,http://downloads.cms.gov/foia/physician-referrals-2009.zip
+CMS,63,Use Case 19: Out-of-network patient leakage impact,http://downloads.cms.gov/foia/physician-referrals-2010.zip
+CMS,63,Use Case 19: Out-of-network patient leakage impact,http://downloads.cms.gov/foia/physician-referrals-2011.zip
+CMS,63,Use Case 19: Out-of-network patient leakage impact,http://downloads.cms.gov/foia/physician-referrals-2012-2013-days180.zip
+CMS,63,Use Case 19: Out-of-network patient leakage impact,http://downloads.cms.gov/foia/physician-referrals-2012-2013-days30.zip
+CMS,63,Use Case 19: Out-of-network patient leakage impact,http://downloads.cms.gov/foia/physician-referrals-2012-2013-days365.zip
+CMS,63,Use Case 19: Out-of-network patient leakage impact,http://downloads.cms.gov/foia/physician-referrals-2012-2013-days60.zip
+CMS,63,Use Case 19: Out-of-network patient leakage impact,http://downloads.cms.gov/foia/physician-referrals-2012-2013-days90.zip
+CMS,63,Use Case 19: Out-of-network patient leakage impact,http://downloads.cms.gov/foia/physician-referrals-2013-2014-days180.zip
+CMS,63,Use Case 19: Out-of-network patient leakage impact,http://downloads.cms.gov/foia/physician-referrals-2013-2014-days30.zip
+CMS,63,Use Case 19: Out-of-network patient leakage impact,http://downloads.cms.gov/foia/physician-referrals-2013-2014-days365.zip
+CMS,63,Use Case 19: Out-of-network patient leakage impact,http://downloads.cms.gov/foia/physician-referrals-2013-2014-days60.zip
+CMS,63,Use Case 19: Out-of-network patient leakage impact,http://downloads.cms.gov/foia/physician-referrals-2013-2014-days90.zip
+CMS,63,Use Case 19: Out-of-network patient leakage impact,http://www.careset.com/
+CMS,63,Use Case 19: Out-of-network patient leakage impact,http://www.docgraph.org/
+CMS,63,Use Case 19: Out-of-network patient leakage impact,http://www.docgraph.org/notice-teaming-data/
+CMS,63,Use Case 19: Out-of-network patient leakage impact,https://github.com/demand-driven-open-data/ddod-intake/issues/19
+CMS,63,Use Case 19: Out-of-network patient leakage impact,https://questions.cms.gov/faq.php?faqId=7977
+CMS,63,Use Case 19: Out-of-network patient leakage impact,https://twitter.com/fredtrotter
+"FDA,FDA-CDER",42,Use Case 25: History for structured product labels,http://dailymed.nlm.nih.gov/dailymed/getFile.cfm?type=zip&setid=%7BSetID%7D&version=%7BversionNumber%7D
+"FDA,FDA-CDER",42,Use Case 25: History for structured product labels,http://dailymed.nlm.nih.gov/dailymed/getFile.cfm?type=zip&setid=4724dbb4-3613-4e6a-948f-a43d34f97f06&version=13
+"FDA,FDA-CDER",42,Use Case 25: History for structured product labels,http://dailymed.nlm.nih.gov/dailymed/services/v2/spls/%7BSetID%7D/history.json
+"FDA,FDA-CDER",42,Use Case 25: History for structured product labels,http://dailymed.nlm.nih.gov/dailymed/services/v2/spls/%7BSetID%7D/history.xml
+"FDA,FDA-CDER",42,Use Case 25: History for structured product labels,http://dailymed.nlm.nih.gov/dailymed/services/v2/spls/%7BSetID%7D/history.zip
+"FDA,FDA-CDER",42,Use Case 25: History for structured product labels,http://dailymed.nlm.nih.gov/dailymed/services/v2/spls/4724dbb4-3613-4e6a-948f-a43d34f97f06/history.json
+"FDA,FDA-CDER",42,Use Case 25: History for structured product labels,http://dailymed.nlm.nih.gov/dailymed/services/v2/spls/4724dbb4-3613-4e6a-948f-a43d34f97f06/history.zip
+"FDA,FDA-CDER",42,Use Case 25: History for structured product labels,http://dailymed.nlm.nih.gov/dailymed/spl-resources-all-drug-labels.cfm
+"FDA,FDA-CDER",42,Use Case 25: History for structured product labels,http://rxnav.nlm.nih.gov/REST/rxcui/757702/splsetid
+"FDA,FDA-CDER",42,Use Case 25: History for structured product labels,http://rxnav.nlm.nih.gov/RxNormRestAPI.html
+"FDA,FDA-CDER",42,Use Case 25: History for structured product labels,http://www.fda.gov/downloads/ForIndustry/DataStandards/StructuredProductLabeling/UCM321876.pdf
+"FDA,FDA-CDER",42,Use Case 25: History for structured product labels,http://www.nlm.nih.gov/research/umls/rxnorm/overview.html
+"FDA,FDA-CDER",42,Use Case 25: History for structured product labels,https://github.com/demand-driven-open-data/ddod-intake/issues/25
+"FDA,FDA-CDER",42,Use Case 25: History for structured product labels,https://open.fda.gov/drug/label/reference/
+"FDA,FDA-CDER",42,Use Case 25: History for structured product labels,https://open.fda.gov/drug/label/reference/#id-and-version
+"CMS,CMS-CPI",95,Use Case 21: healthcare.gov + NPPES + HPOES provider health plan network status,http://download.cms.gov/marketplace-puf/2016/machine-readable-url-puf.zip
+"CMS,CMS-CPI",95,Use Case 21: healthcare.gov + NPPES + HPOES provider health plan network status,https://github.com/CMSgov/QHP-provider-formulary-APIs
+"CMS,CMS-CPI",95,Use Case 21: healthcare.gov + NPPES + HPOES provider health plan network status,https://github.com/demand-driven-open-data/ddod-intake/issues/21
+"CMS,CMS-CPI",95,Use Case 21: healthcare.gov + NPPES + HPOES provider health plan network status,https://www.cms.gov/CCIIO/Resources/Data-Resources/Downloads/Disclaimer_for_Machine_Readable.pdf
+"CMS,CMS-CPI",95,Use Case 21: healthcare.gov + NPPES + HPOES provider health plan network status,https://www.cms.gov/CCIIO/Resources/Data-Resources/Downloads/Machine_Readable_Data_Dictionary.pdf
+"CMS,CMS-CPI",95,Use Case 21: healthcare.gov + NPPES + HPOES provider health plan network status,https://www.cms.gov/CCIIO/Resources/Data-Resources/marketplace-puf.html
+,179,Use Case 47: Influenza forecast hot spot visualization,http://www.betaboston.com/news/2015/08/26/google-closes-flu-trends-will-send-data-to-researchers-at-boston-childrens-cdc/
+,179,Use Case 47: Influenza forecast hot spot visualization,http://www.cdc.gov/nssp/biosense/index.html
+,179,Use Case 47: Influenza forecast hot spot visualization,http://www.nature.com/news/when-google-got-flu-wrong-1.12413
+,179,Use Case 47: Influenza forecast hot spot visualization,https://github.com/demand-driven-open-data/ddod-intake/issues/47
+,179,Use Case 47: Influenza forecast hot spot visualization,https://www.cms.gov/Regulations-and-Guidance/Legislation/EHRIncentivePrograms/downloads/10_Syndromic_Surveillance_Data_SubmissionEP.pdf
+,179,Use Case 47: Influenza forecast hot spot visualization,https://www.kagenair.com/
+,179,Use Case 47: Influenza forecast hot spot visualization,https://www.linkedin.com/pub/steve-kagen-m-d/40/a46/b68
+HRSA,99,Use Case 23: Performance data on health centers,http://bphc.hrsa.gov/policiesregulations/performancemeasures/
+HRSA,99,Use Case 23: Performance data on health centers,http://bphc.hrsa.gov/uds/datacenter.aspx
+HRSA,99,Use Case 23: Performance data on health centers,http://bphc.hrsa.gov/uds/datacenter.aspx?q=d
+HRSA,99,Use Case 23: Performance data on health centers,https://github.com/demand-driven-open-data/ddod-intake/issues/23
+"CMS,CMS-CMCS",158,Use Case 46: Medicaid MCO Data,http://purplebinder.com
+"CMS,CMS-CMCS",158,Use Case 46: Medicaid MCO Data,http://www.medicaid.gov/medicaid-chip-program-information/by-topics/data-and-systems/medicaid-managed-care/downloads/2012-medicaid-managed-care-enrollment-report.pdf
+"CMS,CMS-CMCS",158,Use Case 46: Medicaid MCO Data,http://www.medicaid.gov/medicaid-chip-program-information/by-topics/data-and-systems/medicaid-managed-care/medicaid-managed-care-enrollment-report.html
+"CMS,CMS-CMCS",158,Use Case 46: Medicaid MCO Data,http://www.medicaid.gov/medicaid-chip-program-information/by-topics/delivery-systems/managed-care/managed-care-profiles.html
+"CMS,CMS-CMCS",158,Use Case 46: Medicaid MCO Data,https://github.com/demand-driven-open-data/ddod-intake/issues/46
+"CMS,CMS-CMCS",158,Use Case 46: Medicaid MCO Data,https://github.com/demand-driven-open-data/ddod-intake/issues/53
+"CMS,CMS-CMCS",158,Use Case 46: Medicaid MCO Data,https://www.medicaid.gov/medicaid-chip-program-information/by-topics/data-and-systems/medicaid-managed-care/downloads/2014-enrollment-data-by-program-and-population.zip
+"CMS,CMS-CMCS",158,Use Case 46: Medicaid MCO Data,https://www.medicaid.gov/medicaid-chip-program-information/by-topics/data-and-systems/medicaid-managed-care/downloads/enrollment-by-program-and-population.zip
+,85,Use Case 17: Use cases from Matter health tech incubator,https://github.com/demand-driven-open-data/ddod-intake/issues/17
+,156,Use Case 45: Formatting on structured product labels,http://www.fda.gov/Drugs/GuidanceComplianceRegulatoryInformation/LawsActsandRules/ucm084189.htm
+,156,Use Case 45: Formatting on structured product labels,http://www.fda.gov/downloads/ForIndustry/DataStandards/StructuredProductLabeling/UCM321876.pdf
+,156,Use Case 45: Formatting on structured product labels,https://github.com/demand-driven-open-data/ddod-intake/issues/45
+"CDC,FDA",75,Use Case 11: Cruise ship outbreak data availability,http://www.cdc.gov/nceh/vsp/surv/gilist.htm
+"CDC,FDA",75,Use Case 11: Cruise ship outbreak data availability,http://wwwn.cdc.gov/InspectionQueryTool/InspectionSearch.aspx
+"CDC,FDA",75,Use Case 11: Cruise ship outbreak data availability,https://github.com/demand-driven-open-data/ddod-intake/issues/11
+CMS,162,Use Case 35: Physician Based Modifier Results on Provider Level,http://www.cms.gov/Medicare/Medicare-Fee-for-Service-Payment/PhysicianFeedbackProgram/Downloads/2015-VM-Program-Experience-Rpt.pdf
+CMS,162,Use Case 35: Physician Based Modifier Results on Provider Level,http://www.cms.gov/Medicare/Medicare-Fee-for-Service-Payment/PhysicianFeedbackProgram/Downloads/2015-Value-Modifier-Results.pdf
+CMS,162,Use Case 35: Physician Based Modifier Results on Provider Level,https://github.com/demand-driven-open-data/ddod-intake/issues/35
+CMS,162,Use Case 35: Physician Based Modifier Results on Provider Level,https://www.cms.gov/Medicare/Medicare-Fee-for-Service-Payment/PhysicianFeedbackProgram/Downloads/2015-Value-Modifier-Results.pdf
+CMS,24,Use Case 30: Identify dual eligibles in CMS DE-SynPUF,http://www.cms.gov/Research-Statistics-Data-and-Systems/Downloadable-Public-Use-Files/SynPUFs/DE_Syn_PUF.html
+CMS,24,Use Case 30: Identify dual eligibles in CMS DE-SynPUF,http://www.cms.gov/Research-Statistics-Data-and-Systems/Statistics-Trends-and-Reports/Medicare-Geographic-Variation/GV_PUF.html
+CMS,24,Use Case 30: Identify dual eligibles in CMS DE-SynPUF,"https://docs.google.com/spreadsheets/d/1acv8kB-HTtMxvuM7HPtMrNx6vIqjpWvjeAUCRoVS_-4/gviz/tq?gid=0&pli=1&tqx=out:html&tq=SELECT%20B,%20D,%20E,%20F%20where%20A=30%20ORDER%20BY%20B"
+CMS,24,Use Case 30: Identify dual eligibles in CMS DE-SynPUF,https://github.com/demand-driven-open-data/ddod-intake/issues/30
+"CMS,CMS-CPI",15,Use Case 29: Link Open Payments dataset to NPI,http://hunchanalytics.com/
+"CMS,CMS-CPI",15,Use Case 29: Link Open Payments dataset to NPI,http://twitter.com/skram
+"CMS,CMS-CPI",15,Use Case 29: Link Open Payments dataset to NPI,http://www.ama-assn.org/ama/pub/about-ama/physician-data-resources/physician-masterfile.page
+"CMS,CMS-CPI",15,Use Case 29: Link Open Payments dataset to NPI,http://www.cms.gov/OpenPayments/Downloads/Open-Payments-April-2015-Report-to-Congress.pdf
+"CMS,CMS-CPI",15,Use Case 29: Link Open Payments dataset to NPI,http://www.cms.gov/OpenPayments/Downloads/OpenPaymentsDataDictionary.pdf
+"CMS,CMS-CPI",15,Use Case 29: Link Open Payments dataset to NPI,http://www.cms.gov/OpenPayments/Explore-the-Data/Dataset-Downloads.html
+"CMS,CMS-CPI",15,Use Case 29: Link Open Payments dataset to NPI,http://www.docgraph.org/
+"CMS,CMS-CPI",15,Use Case 29: Link Open Payments dataset to NPI,http://www.socrata.com/industries/health-data-access-management
+"CMS,CMS-CPI",15,Use Case 29: Link Open Payments dataset to NPI,http://www.ssa.gov/OP_Home/ssact/title11/1128G.htm
+"CMS,CMS-CPI",15,Use Case 29: Link Open Payments dataset to NPI,https://data.cms.gov/dataset/Medicare-Individual-Provider-List/u8u9-2upx
+"CMS,CMS-CPI",15,Use Case 29: Link Open Payments dataset to NPI,https://github.com/demand-driven-open-data/ddod-intake/issues/29
+"CMS,CMS-CPI",15,Use Case 29: Link Open Payments dataset to NPI,https://github.com/demand-driven-open-data/ddod-intake/issues/29#issuecomment-107056506
+"CMS,CMS-CPI",15,Use Case 29: Link Open Payments dataset to NPI,https://github.com/demand-driven-open-data/ddod-intake/issues/29#issuecomment-113606441
+"CMS,CMS-CPI",15,Use Case 29: Link Open Payments dataset to NPI,https://github.com/ftrotter
+"CMS,CMS-CPI",15,Use Case 29: Link Open Payments dataset to NPI,https://openpaymentsdata.cms.gov/
+"CMS,CMS-CPI",15,Use Case 29: Link Open Payments dataset to NPI,https://openpaymentsdata.cms.gov/browse
+"CMS,CMS-CPI",15,Use Case 29: Link Open Payments dataset to NPI,https://twitter.com/waldojaquith
+CDC,77,Use Case 10: Historical archive of disease outbreaks,http://www.cdc.gov/mmwr/pdf/wk/mm6410md.pdf
+CDC,77,Use Case 10: Historical archive of disease outbreaks,http://www.ncbi.nlm.nih.gov/pmc/articles/PMC4175560/?report=classic
+CDC,77,Use Case 10: Historical archive of disease outbreaks,https://data.cdc.gov/NNDSS/NNDSS-Table-II-Mumps-to-Rabies-animal/d69q-iyrb
+CDC,77,Use Case 10: Historical archive of disease outbreaks,https://data.cdc.gov/browse?category=MMWR&tags=mmwr&utf8=%E2%9C%93
+CDC,77,Use Case 10: Historical archive of disease outbreaks,https://github.com/demand-driven-open-data/ddod-intake/issues/10
+CDC,77,Use Case 10: Historical archive of disease outbreaks,https://www.tycho.pitt.edu/
+"CMS,CMS-CM",47,Use Case 4: Make VBM (Value-Based Payment Modifier) reporting for all groups publicly available,http://www.cms.gov/Medicare/Medicare-Fee-for-Service-Payment/PhysicianFeedbackProgram/Downloads/2013-Sample-QRUR.PDF
+"CMS,CMS-CM",47,Use Case 4: Make VBM (Value-Based Payment Modifier) reporting for all groups publicly available,http://www.cms.gov/Medicare/Medicare-Fee-for-Service-Payment/PhysicianFeedbackProgram/Downloads/2015-VM-Program-Experience-Rpt.pdf
+"CMS,CMS-CM",47,Use Case 4: Make VBM (Value-Based Payment Modifier) reporting for all groups publicly available,https://data.cms.gov/dataset/Medicare-Individual-Provider-List/u8u9-2upx
+"CMS,CMS-CM",47,Use Case 4: Make VBM (Value-Based Payment Modifier) reporting for all groups publicly available,https://github.com/demand-driven-open-data/ddod-intake/issues/4
+"CMS,CMS-CM",47,Use Case 4: Make VBM (Value-Based Payment Modifier) reporting for all groups publicly available,https://www.cms.gov/Medicare/Medicare-Fee-for-Service-Payment/PhysicianFeedbackProgram/Downloads/2015-Value-Modifier-Results.pdf
+CMS,79,Use Case 9: Transparency on GME (Graduate Medical Education) funding,http://www.iom.edu/Reports/2014/Graduate-Medical-Education-That-Meets-the-Nations-Health-Needs.aspx
+CMS,79,Use Case 9: Transparency on GME (Graduate Medical Education) funding,https://aspe.hhs.gov/sites/default/files/pdf/74821/report.pdf
+CMS,79,Use Case 9: Transparency on GME (Graduate Medical Education) funding,https://aspe.hhs.gov/sites/default/files/pdf/74846/report.pdf
+CMS,79,Use Case 9: Transparency on GME (Graduate Medical Education) funding,https://github.com/demand-driven-open-data/ddod-intake/issues/9
+CMS,79,Use Case 9: Transparency on GME (Graduate Medical Education) funding,https://www.cms.gov/Research-Statistics-Data-and-Systems/Downloadable-Public-Use-Files/Cost-Reports/index.html
+"FDA,FDA-CDRH",48,Use Case 5: Consolidated registry of marketed medical devices,http://blogs.fda.gov/fdavoice/index.php/2015/09/openfda-makes-medical-device-related-data-easier-to-access-and-use/
+"FDA,FDA-CDRH",48,Use Case 5: Consolidated registry of marketed medical devices,http://www.accessdata.fda.gov/scripts/cdrh/cfdocs/cfRL/rl.cfm
+"FDA,FDA-CDRH",48,Use Case 5: Consolidated registry of marketed medical devices,http://www.fda.gov/MedicalDevices/DeviceRegulationandGuidance/HowtoMarketYourDevice/RegistrationandListing/ucm134495.htm
+"FDA,FDA-CDRH",48,Use Case 5: Consolidated registry of marketed medical devices,https://docs.google.com/spreadsheets/d/117j75ihkLBjnt0eOUddqHGPT8wHdAszF6hroRTq5RJo
+"FDA,FDA-CDRH",48,Use Case 5: Consolidated registry of marketed medical devices,https://github.com/demand-driven-open-data/ddod-intake/issues/5
+"FDA,FDA-CDRH",48,Use Case 5: Consolidated registry of marketed medical devices,https://open.fda.gov/device/registrationlisting/
+"FDA,FDA-CDRH",48,Use Case 5: Consolidated registry of marketed medical devices,https://open.fda.gov/device/registrationlisting/reference/
+"CMS,CMS-CCIIO",22,Use Case 28: Verify accuracy of healthcare.gov Plan Finder,https://data.healthcare.gov/browse?q=URR&sortBy=relevance&utf8=%E2%9C%93
+"CMS,CMS-CCIIO",22,Use Case 28: Verify accuracy of healthcare.gov Plan Finder,https://data.healthcare.gov/dataset/QHP-Landscape-Individual-Market-Medical/b8in-sz6k
+"CMS,CMS-CCIIO",22,Use Case 28: Verify accuracy of healthcare.gov Plan Finder,https://finder.healthcare.gov
+"CMS,CMS-CCIIO",22,Use Case 28: Verify accuracy of healthcare.gov Plan Finder,https://finder.healthcare.gov/#services
+"CMS,CMS-CCIIO",22,Use Case 28: Verify accuracy of healthcare.gov Plan Finder,https://finder.healthcare.gov/#services/version_3_0
+"CMS,CMS-CCIIO",22,Use Case 28: Verify accuracy of healthcare.gov Plan Finder,https://finder.healthcare.gov/api/finder_api_v3.0.xsd
+"CMS,CMS-CCIIO",22,Use Case 28: Verify accuracy of healthcare.gov Plan Finder,https://github.com/demand-driven-open-data/ddod-intake/issues/28
+"CMS,CMS-CCIIO",22,Use Case 28: Verify accuracy of healthcare.gov Plan Finder,https://www.cms.gov/CCIIO/Programs-and-Initiatives/Health-Insurance-Marketplaces/Downloads/2016-Unified-Rate-Review-Instructions-20150222-Final.pdf
+"CMS,CMS-CCIIO",22,Use Case 28: Verify accuracy of healthcare.gov Plan Finder,https://www.cms.gov/CCIIO/Resources/Data-Resources/health_plan_finder_data.html
+CMS,168,Use Case 39: Provider to Patient Zip Codes,https://github.com/demand-driven-open-data/ddod-intake/issues/39
+"FDA,FDA-CDER",120,Use Case 33: History of drug approvals for analytics,http://chess.bsd.uchicago.edu/events/documents/Rao_InvestmentPharmaceutical.pdf
+"FDA,FDA-CDER",120,Use Case 33: History of drug approvals for analytics,http://www.accessdata.fda.gov/scripts/cder/ob/
+"FDA,FDA-CDER",120,Use Case 33: History of drug approvals for analytics,https://github.com/demand-driven-open-data/ddod-intake/issues/33
+ASPE,182,Use Case 49: API for Federal Poverty Guidelines,http://aspe.hhs.gov/2015-poverty-guidelines
+ASPE,182,Use Case 49: API for Federal Poverty Guidelines,http://aspe.hhs.gov/dataset/2015-poverty-guidelines
+ASPE,182,Use Case 49: API for Federal Poverty Guidelines,http://aspe.hhs.gov/prior-hhs-poverty-guidelines-and-federal-register-references
+ASPE,182,Use Case 49: API for Federal Poverty Guidelines,http://benefitkitchen.com
+ASPE,182,Use Case 49: API for Federal Poverty Guidelines,http://fplapi.herokuapp.com/api?size=3&income=2000&income_type=monthly
+ASPE,182,Use Case 49: API for Federal Poverty Guidelines,https://github.com/apranav19
+ASPE,182,Use Case 49: API for Federal Poverty Guidelines,https://github.com/codeforamerica/fplapi
+ASPE,182,Use Case 49: API for Federal Poverty Guidelines,https://github.com/codeforamerica/fplapi/blob/master/fpl.py
+ASPE,182,Use Case 49: API for Federal Poverty Guidelines,https://github.com/codeforamerica/project-ideas/issues/70
+ASPE,182,Use Case 49: API for Federal Poverty Guidelines,https://github.com/daguar
+ASPE,182,Use Case 49: API for Federal Poverty Guidelines,https://github.com/demand-driven-open-data/ddod-intake/issues/49
+ASPE,182,Use Case 49: API for Federal Poverty Guidelines,https://github.com/mapsam
+ASPE,182,Use Case 49: API for Federal Poverty Guidelines,https://openreferral.org
+ASPE,182,Use Case 49: API for Federal Poverty Guidelines,https://www.healthcare.gov/income-and-household-information/household-size/
+"CMS,CMS-CPI",65,Use Case 16: 3rd party updating of NPPES,http://nppes.viva-it.com/NPI_Files.html
+"CMS,CMS-CPI",65,Use Case 16: 3rd party updating of NPPES,http://www.cms.gov/Outreach-and-Education/Outreach/NPC/Downloads/508-IA-Call-FINALDM2.pdf
+"CMS,CMS-CPI",65,Use Case 16: 3rd party updating of NPPES,http://www.cms.gov/Regulations-and-Guidance/HIPAA-Administrative-Simplification/NationalProvIdentStand/DataDissemination.html
+"CMS,CMS-CPI",65,Use Case 16: 3rd party updating of NPPES,https://github.com/demand-driven-open-data/ddod-intake/issues/16
+"CMS,CMS-CPI",65,Use Case 16: 3rd party updating of NPPES,https://nppes.cms.hhs.gov/IAWeb
+"CMS,CMS-CPI",65,Use Case 16: 3rd party updating of NPPES,https://nppes.cms.hhs.gov/NPPESRegistry/NPIRegistryHome.do
+"CMS,CMS-CPI",65,Use Case 16: 3rd party updating of NPPES,mailto:EUSSupport@cgi.com
+"CMS,CMS-CCIIO",132,Use Case 37: FFM Network Adequacy data to meet directory requirements,http://download.cms.gov/marketplace-puf/2014/network-puf.zip
+"CMS,CMS-CCIIO",132,Use Case 37: FFM Network Adequacy data to meet directory requirements,http://download.cms.gov/marketplace-puf/2016/machine-readable-url-puf.zip
+"CMS,CMS-CCIIO",132,Use Case 37: FFM Network Adequacy data to meet directory requirements,http://download.cms.gov/marketplace-puf/network-puf.zip
+"CMS,CMS-CCIIO",132,Use Case 37: FFM Network Adequacy data to meet directory requirements,http://www.cms.gov/CCIIO/Programs-and-Initiatives/Health-Insurance-Marketplaces/Downloads/Chapter06NetworkAdequacy-Ver21-040115.pdf
+"CMS,CMS-CCIIO",132,Use Case 37: FFM Network Adequacy data to meet directory requirements,http://www.cms.gov/CCIIO/Programs-and-Initiatives/Health-Insurance-Marketplaces/Downloads/NetworkAdequacyTemplate2016v11.xlsm
+"CMS,CMS-CCIIO",132,Use Case 37: FFM Network Adequacy data to meet directory requirements,http://www.cms.gov/CCIIO/Programs-and-Initiatives/Health-Insurance-Marketplaces/qhp.html
+"CMS,CMS-CCIIO",132,Use Case 37: FFM Network Adequacy data to meet directory requirements,http://www.cms.gov/CCIIO/Resources/Data-Resources/marketplace-puf.html
+"CMS,CMS-CCIIO",132,Use Case 37: FFM Network Adequacy data to meet directory requirements,https://github.com/CMSgov/QHP-provider-formulary-APIs
+"CMS,CMS-CCIIO",132,Use Case 37: FFM Network Adequacy data to meet directory requirements,https://github.com/demand-driven-open-data/ddod-intake/issues/37
+"CMS,CMS-CCIIO",132,Use Case 37: FFM Network Adequacy data to meet directory requirements,https://meritus.benefitalign.com/Meritus/Provider/ProviderSearchDetails?plan=MNMH
+"CMS,CMS-CCIIO",132,Use Case 37: FFM Network Adequacy data to meet directory requirements,https://twitter.com/fredtrotter
+"CMS,CMS-CCIIO",132,Use Case 37: FFM Network Adequacy data to meet directory requirements,https://www.cms.gov/CCIIO/Programs-and-Initiatives/Health-Insurance-Marketplaces/index.html
+"CMS,CMS-CCIIO",132,Use Case 37: FFM Network Adequacy data to meet directory requirements,https://www.cms.gov/CCIIO/Resources/Data-Resources/Downloads/Disclaimer_for_Machine_Readable.pdf
+"CMS,CMS-CCIIO",132,Use Case 37: FFM Network Adequacy data to meet directory requirements,https://www.cms.gov/CCIIO/Resources/Data-Resources/Downloads/Machine_Readable_Data_Dictionary.pdf
+"CMS,CMS-CCIIO",132,Use Case 37: FFM Network Adequacy data to meet directory requirements,https://www.cms.gov/CCIIO/Resources/Data-Resources/marketplace-puf.html
+"CMS,CMS-CPI",69,Use Case 14: Link NPI and PECOS datasets,http://nppes.viva-it.com/NPI_Files.html
+"CMS,CMS-CPI",69,Use Case 14: Link NPI and PECOS datasets,https://data.cms.gov/dataset/Medicare-Individual-Provider-List/u8u9-2upx
+"CMS,CMS-CPI",69,Use Case 14: Link NPI and PECOS datasets,https://github.com/demand-driven-open-data/ddod-intake/issues/14
+"CMS,CMS-CPI",69,Use Case 14: Link NPI and PECOS datasets,https://pecos.cms.hhs.gov/pecos/login.do
+CMS,59,Use Case 24: Mapping of NPI number to PubMed ID,http://orcid.org
+CMS,59,Use Case 24: Mapping of NPI number to PubMed ID,http://www.ncbi.nlm.nih.gov/pubmed
+CMS,59,Use Case 24: Mapping of NPI number to PubMed ID,http://www.researcherid.com/Home.action
+CMS,59,Use Case 24: Mapping of NPI number to PubMed ID,https://github.com/demand-driven-open-data/ddod-intake/issues/24
+CMS,59,Use Case 24: Mapping of NPI number to PubMed ID,https://npiregistry.cms.hhs.gov
+CMS,59,Use Case 24: Mapping of NPI number to PubMed ID,https://npiregistry.cms.hhs.gov/registry/help-api
+CMS,59,Use Case 24: Mapping of NPI number to PubMed ID,https://www.nlm.nih.gov/pubs/techbull/mj12/mj12_pm_author_ranking.html
+CMS,59,Use Case 24: Mapping of NPI number to PubMed ID,https://www.nlm.nih.gov/pubs/techbull/nd10/nd10_pm_author_id.html
+CMS,59,Use Case 24: Mapping of NPI number to PubMed ID,https://www.nlm.nih.gov/pubs/techbull/so14/so14_sciencv_orcid.html
+"CMS,CMS-CCSQ",89,Use Case 3: Greater granularity in PQRS published benchmarks,http://www.cms.gov/Medicare/Medicare-Fee-for-Service-Payment/PhysicianFeedbackProgram/Downloads/PY2014-Prior-Year-Benchmarks.PDF
+"CMS,CMS-CCSQ",89,Use Case 3: Greater granularity in PQRS published benchmarks,https://github.com/demand-driven-open-data/ddod-intake/issues/3
+"CMS,CMS-CCSQ",89,Use Case 3: Greater granularity in PQRS published benchmarks,https://www.cms.gov/medicare/medicare-fee-for-service-payment/physicianfeedbackprogram/valuebasedpaymentmodifier.html
+,199,Use Case 57: Dupuytren disease impact query,https://github.com/demand-driven-open-data/ddod-intake/issues/56
+,185,Use Case 50: Incomplete Data in 2015 Rate PUF,https://github.com/demand-driven-open-data/ddod-intake/issues/50
+,185,Use Case 50: Incomplete Data in 2015 Rate PUF,https://www.cms.gov/CCIIO/Resources/Data-Resources/Downloads/General-Information-Factsheet.pdf
+,185,Use Case 50: Incomplete Data in 2015 Rate PUF,https://www.cms.gov/cciio/resources/data-resources/marketplace-puf.html
+"CMS,CMS-CCIIO",150,Use Case 44: Measure coverage of preventive care by FFM insurance plans,http://brightfutures.aap.org/pdfs/coding%20pr%20f0809.pdf
+"CMS,CMS-CCIIO",150,Use Case 44: Measure coverage of preventive care by FFM insurance plans,http://www.aap.org/en-us/professional-resources/practice-support/financing-and-payment/Documents/BF-PMSfactsheet.pdf?aid=2052
+"CMS,CMS-CCIIO",150,Use Case 44: Measure coverage of preventive care by FFM insurance plans,http://www.cdc.gov/prevention/billingcodes.html
+"CMS,CMS-CCIIO",150,Use Case 44: Measure coverage of preventive care by FFM insurance plans,http://www.cigna.com/assets/docs/health-care-professionals/807467h-Preventive-Health-Cov-Guide.pdf
+"CMS,CMS-CCIIO",150,Use Case 44: Measure coverage of preventive care by FFM insurance plans,http://www.cms.gov/Medicare/Prevention/PrevntionGenInfo/Downloads/MPS_QuickReferenceChart_1.pdf
+"CMS,CMS-CCIIO",150,Use Case 44: Measure coverage of preventive care by FFM insurance plans,http://www.socrata.com
+"CMS,CMS-CCIIO",150,Use Case 44: Measure coverage of preventive care by FFM insurance plans,https://github.com/demand-driven-open-data/ddod-intake/issues/44
+"CMS,CMS-CCIIO",150,Use Case 44: Measure coverage of preventive care by FFM insurance plans,https://www.cms.gov/Medicare/Prevention/PrevntionGenInfo/Downloads/MPS_QuickReferenceChart_1.pdf
+"CMS,CMS-CCIIO",150,Use Case 44: Measure coverage of preventive care by FFM insurance plans,https://www.healthcare.gov/preventive-care-benefits/
+"CMS,CMS-CCIIO",150,Use Case 44: Measure coverage of preventive care by FFM insurance plans,https://www.linkedin.com/company/summit-consulting-llc
+"CMS,CMS-CCIIO",150,Use Case 44: Measure coverage of preventive care by FFM insurance plans,https://www.unitedhealthcareonline.com/ccmcontent/ProviderII/UHC/en-US/Assets/ProviderStaticFiles/ProviderStaticFilesPdf/Tools%20and%20Resources/Policies%20and%20Protocols/Medical%20Policies/Medical%20Policies/Preventive_Care_Services_CD.pdf
+CMS,170,Use Case 40: Patient demographics for provider utilization datasets,http://download.cms.gov/Research-Statistics-Data-and-Systems/Statistics-Trends-and-Reports/Medicare-Provider-Charge-Data/Downloads/Medicare_Physician_and_Other_Supplier_NPI_Aggregate_CY2012_update.zip
+CMS,170,Use Case 40: Patient demographics for provider utilization datasets,http://download.cms.gov/Research-Statistics-Data-and-Systems/Statistics-Trends-and-Reports/Medicare-Provider-Charge-Data/Downloads/Medicare_Physician_and_Other_Supplier_NPI_Aggregate_CY2013.zip
+CMS,170,Use Case 40: Patient demographics for provider utilization datasets,https://data.cms.gov/use-agreement/data-limitations/provider-explorer
+CMS,170,Use Case 40: Patient demographics for provider utilization datasets,https://github.com/demand-driven-open-data/ddod-intake/issues/40
+CMS,170,Use Case 40: Patient demographics for provider utilization datasets,https://www.cms.gov/Research-Statistics-Data-and-Systems/Statistics-Trends-and-Reports/Medicare-Provider-Charge-Data/Physician-and-Other-Supplier.html
+"FDA,FDA-CDRH",50,Use Case 6: Consolidated reporting of medical device recalls,http://blogs.fda.gov/fdavoice/index.php/2015/09/openfda-makes-medical-device-related-data-easier-to-access-and-use/
+"FDA,FDA-CDRH",50,Use Case 6: Consolidated reporting of medical device recalls,http://www.accessdata.fda.gov/scripts/cdrh/cfdocs/cfRES/res.cfm
+"FDA,FDA-CDRH",50,Use Case 6: Consolidated reporting of medical device recalls,http://www.fda.gov/RegulatoryInformation/FOI/HowtoMakeaFOIARequest/default.htm
+"FDA,FDA-CDRH",50,Use Case 6: Consolidated reporting of medical device recalls,http://www.fda.gov/Safety/Recalls/EnforcementReports/default.htm
+"FDA,FDA-CDRH",50,Use Case 6: Consolidated reporting of medical device recalls,https://api.fda.gov/device/510k.json?search=k_number:%22K131254%22
+"FDA,FDA-CDRH",50,Use Case 6: Consolidated reporting of medical device recalls,https://api.fda.gov/device/enforcement.json?search=event_id:%2269910%22
+"FDA,FDA-CDRH",50,Use Case 6: Consolidated reporting of medical device recalls,https://api.fda.gov/device/recall.json?search=res_event_number:%2269910%22
+"FDA,FDA-CDRH",50,Use Case 6: Consolidated reporting of medical device recalls,https://github.com/demand-driven-open-data/ddod-intake/issues/6
+"FDA,FDA-CDRH",50,Use Case 6: Consolidated reporting of medical device recalls,https://open.fda.gov/device/recall/
+"FDA,FDA-CDRH",50,Use Case 6: Consolidated reporting of medical device recalls,https://open.fda.gov/device/recall/reference/
+CMS,67,Use Case 15: De-identified claims analytics for selecting physicians,https://github.com/demand-driven-open-data/ddod-intake/issues/15
+"CDC,CDC-NCHS",83,Use Case 7: National death registry for outcomes research,http://nutorc.org/site/nutorc-accomplish/grants/
+"CDC,CDC-NCHS",83,Use Case 7: National death registry for outcomes research,http://www.cdc.gov/
+"CDC,CDC-NCHS",83,Use Case 7: National death registry for outcomes research,http://www.cdc.gov/nchs/
+"CDC,CDC-NCHS",83,Use Case 7: National death registry for outcomes research,http://www.cdc.gov/nchs/data_access/ndi/completion_status.htm
+"CDC,CDC-NCHS",83,Use Case 7: National death registry for outcomes research,http://www.cdc.gov/nchs/data_access/ndi/ndi_early_release.htm
+"CDC,CDC-NCHS",83,Use Case 7: National death registry for outcomes research,http://www.cdc.gov/nchs/ndi.htm
+"CDC,CDC-NCHS",83,Use Case 7: National death registry for outcomes research,http://www.naphsis.org/Documents/NAPHSIS_Timeliness%20Report_Digital%20(1).pdf
+"CDC,CDC-NCHS",83,Use Case 7: National death registry for outcomes research,http://www.pcori.org/research-results/2013/chicago-area-patient-centered-outcomes-research-network-capricorn
+"CDC,CDC-NCHS",83,Use Case 7: National death registry for outcomes research,http://www.pcori.org/sites/default/files/PCORI-PFA-2015-Winter-Aspirin.pdf
+"CDC,CDC-NCHS",83,Use Case 7: National death registry for outcomes research,http://www.unc.edu/meet-a-tar-heel/delton-atkinson/
+"CDC,CDC-NCHS",83,Use Case 7: National death registry for outcomes research,https://github.com/demand-driven-open-data/ddod-intake/issues/7
+"CDC,CDC-NCHS",83,Use Case 7: National death registry for outcomes research,https://www.linkedin.com/in/braunpaula
+"CMS,CMS-CCSQ,CMS-CM",61,Use Case 20: NPI-TIN mapping for Meaningful Use reporting,http://www.cms.gov/Regulations-and-Guidance/Legislation/EHRIncentivePrograms/DataAndReports.html
+"CMS,CMS-CCSQ,CMS-CM",61,Use Case 20: NPI-TIN mapping for Meaningful Use reporting,http://www.saignite.com/
+"CMS,CMS-CCSQ,CMS-CM",61,Use Case 20: NPI-TIN mapping for Meaningful Use reporting,https://data.cms.gov/dataset/Medicare-Individual-Provider-List/u8u9-2upx
+"CMS,CMS-CCSQ,CMS-CM",61,Use Case 20: NPI-TIN mapping for Meaningful Use reporting,https://github.com/demand-driven-open-data/ddod-intake/issues/20
+"CMS,CMS-CCSQ,CMS-CM",61,Use Case 20: NPI-TIN mapping for Meaningful Use reporting,https://twitter.com/fredtrotter
+"CMS,CMS-CCSQ,CMS-CM",61,Use Case 20: NPI-TIN mapping for Meaningful Use reporting,https://www.billianshealthdata.com/
+CDC,81,Use Case 8: Use of CDC surveillance records to assess population health,https://github.com/demand-driven-open-data/ddod-intake/issues/8
+HRSA,97,Use Case 22: National Practitioner Data Bank online lookup tool,http://optn.transplant.hrsa.gov/converge/latestData/viewDataReports.asp
+HRSA,97,Use Case 22: National Practitioner Data Bank online lookup tool,http://www.npdb.hrsa.gov/analysistool/
+HRSA,97,Use Case 22: National Practitioner Data Bank online lookup tool,http://www.npdb.hrsa.gov/analysistool/crosstab/index.jsp?REP=AAR&noQuery=Y
+HRSA,97,Use Case 22: National Practitioner Data Bank online lookup tool,http://www.npdb.hrsa.gov/analysistool/crosstab/index.jsp?REP=MMPR&noQuery=Y
+HRSA,97,Use Case 22: National Practitioner Data Bank online lookup tool,http://www.npdb.hrsa.gov/resources/publicData.jsp
+HRSA,97,Use Case 22: National Practitioner Data Bank online lookup tool,http://www.npdb.hrsa.gov/topNavigation/contactUs.jsp
+HRSA,97,Use Case 22: National Practitioner Data Bank online lookup tool,https://github.com/demand-driven-open-data/ddod-intake/issues/22
