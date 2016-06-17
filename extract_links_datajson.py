@@ -18,6 +18,7 @@ import datetime
 MAX_DAYS_OLD = 0
 FILE_NAME_DELIMITER = '_'
 TARGET_FOLDER = "snapshots"
+IGNORE_URL_FILE_NAME = 'ignore_urls.json'
 
 
 
@@ -71,6 +72,10 @@ def parse_json(source_name, source_obj, dest_str):
             #if len(url_list) > 1 or (" " in target_str): print("INTERESTING TEXT ==> "+target_str)
             
             for url in url_list:
+                if url in ignore_url_str:
+                    url_counts[source_name]["Ignored"][url]    = url_counts[source_name]["Ignored"].get(url,0) + 1
+                    continue
+                    
                 if url in dest_str:
                     url_counts[source_name]["Found"][url]    = url_counts[source_name]["Found"].get(url,0) + 1
                     #print(url + " found")
@@ -148,8 +153,8 @@ def save_datajson_to_new_file_name(datajson_text, file_name_prefix, file_name_su
 
 def get_datajson_from_file(file_path):
     
-    with open(file_path,encoding="ISO-8859-1") as f:
-        datajson_text = json.load(f)
+    with open(file_path,encoding="ISO-8859-1") as file:
+        datajson_text = json.load(file)
 
     return datajson_text  # Success
 
@@ -221,6 +226,9 @@ hdgov_datajson_dict = clean_up_dict(hdgov_datajson_dict)
 url_counts = {}
 dest_str    = json.dumps(hdgov_datajson_dict)
 
+ignore_url_json = get_datajson_from_file(IGNORE_URL_FILE_NAME)
+ignore_url_str  = json.dumps(ignore_url_json)
+
 
 #: Loop through sources
 # Load source json files
@@ -231,6 +239,7 @@ for (prefix,url) in PREFIX_URL_LIST:
     url_counts[source_name] = {}
     url_counts[source_name]['Found']    = {}
     url_counts[source_name]['NotFound'] = {}
+    url_counts[source_name]['Ignored']  = {}
     parse_json(prefix, datajson_dict, dest_str)
     
 
@@ -242,9 +251,11 @@ for key, value in url_counts.items():
     search_results = value
     num_found     = len(search_results['Found'])
     num_not_found = len(search_results['NotFound'])
+    num_ignored   = len(search_results['Ignored'])
     url_results.append({ "Data Source": data_source
-                        ,"Found":       num_found
-                        ,"Not Found":   num_not_found
+                        ,"Found"      : num_found
+                        ,"Not Found"  : num_not_found
+                        ,"Ignored"    : num_ignored
                        })
     
 df = pd.DataFrame(data=url_results)
