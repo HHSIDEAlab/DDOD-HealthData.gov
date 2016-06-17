@@ -36,7 +36,7 @@ PREFIX_URL_LIST = [
      ,('data.cdc.gov' ,'https://data.cdc.gov/data.json')
      ,('data.cms.gov' ,'http://data.cms.gov/data.json' )
      ,('dnav.cms.gov' ,'http://dnav.cms.gov/Service/DataNavService.svc/json')
-     ,('ddod.healthdata.gov',ERROR_URL)  # Rather than using smw_url, it should fail, so that the file from parse_ddod_smw_content is used
+     ,('ddod.healthdata.gov_gov_only_links',ERROR_URL)  # Rather than using smw_url, it should fail, so that the file from parse_ddod_smw_content is used
      ,('federated_sources',ERROR_URL) 
      #,('HealthData.gov','http://healthdata.gov/data.json')
      #,('Data.gov' ,    'http://data.gov/data.json')
@@ -48,6 +48,30 @@ REXEX_URL  = r"""(?i)\b((?:https?:(?:/{1,3}|[a-z0-9%])|[a-z0-9.\-]+[.](?:com|net
 REXEX_URL += r"""(?:[^\s()<>{}\[\]]+|\([^\s()]*?\([^\s()]+\)[^\s()]*?\)|\([^\s]+?\))"""
 REXEX_URL += r"""+(?:\([^\s()]*?\([^\s()]+\)[^\s()]*?\)|\([^\s]+?\)|[^\s`!()\[\]{};:'".,<>?«»“”‘’])"""
 REXEX_URL += r"""|(?:(?<!@)[a-z0-9]+(?:[.\-][a-z0-9]+)*[.](?:com|net|org|edu|gov|mil)\b/?(?!@)))"""
+
+
+def extract_clean_url_list(target_str):
+    
+    url_list = re.findall(REXEX_URL, target_str)
+    url_list_clean = []
+    
+    for url in url_list:
+        url = url.lower()
+        
+        # Fixes common problems
+        url = url.split('\\')[0]  # Remove backslach
+        url = url.strip('.')  # Trim trailing period
+        url = url.strip('/')  # Trim trailing slash
+        # Split on string
+        # Split on space
+        
+        # TODO: Decide whether to remove http/https prefix
+        
+        if url not in url_list_clean:
+            url_list_clean.append(url)
+    
+    return url_list_clean
+
 
 
 
@@ -68,7 +92,7 @@ def parse_json(source_name, source_obj, dest_str):
         if "http" in target_str:
             
             #: Sometimes there are multiple URLs in the text
-            url_list = re.findall(REXEX_URL, target_str)
+            url_list = extract_clean_url_list(target_str)
             
             #if len(url_list) > 1 or (" " in target_str): print("INTERESTING TEXT ==> "+target_str)
             
@@ -98,14 +122,13 @@ def parse_json(source_name, source_obj, dest_str):
 
 def clean_up_datajson(dirty_obj, output=None):
     
-    dirty_obj_type = type(dirty_obj)
+    dirty_obj_type = 'dict' if type(dirty_obj) is dict else 'str'
 
     #: First convert to string to manipulate
     if dirty_obj_type == 'dict':
         dirty_obj_str = json.dumps(dirty_obj)
     else:
-        if not dirty_obj_type == 'str':
-            dirty_obj_str = str(dirty_obj)   # Try to convert to string
+        dirty_obj_str = str(dirty_obj) 
 
     
     working_str = dirty_obj_str
@@ -180,8 +203,16 @@ def get_datajson_from_file(file_path):
     
     with open(file_path,encoding="ISO-8859-1") as file:
         datajson_text = json.load(file)
+        
+    #: Make sure it's a dictionary
+    if not type(datajson_text) is dict:
+        new_dict = {}
+        new_dict[file_path] = datajson_text
+        datajson_dict = new_dict
+    else:
+        datajson_dict       = datajson_text
 
-    return datajson_text  # Success
+    return datajson_dict  # Success
 
 
 
@@ -228,6 +259,7 @@ def get_datajson_dict(prefix, url):
             datajson_text = clean_up_datajson(datajson_text)
             new_file_name = save_datajson_to_new_file_name(datajson_text, prefix)
             datajson_dict = json.loads(datajson_text)
+            print("1. type(datajson_dict): "+str(type(datajson_dict)))
             return datajson_dict  # From web
 
         
@@ -237,7 +269,9 @@ def get_datajson_dict(prefix, url):
 
     #=== Otherwise use a file
     datajson_dict = get_datajson_from_file(file_name)
+    print("2. type(datajson_dict): "+str(type(datajson_dict)))
     datajson_dict = clean_up_datajson(datajson_dict)
+    print("3. type(datajson_dict): "+str(type(datajson_dict)))
     return datajson_dict  # From file
     
 
@@ -278,9 +312,10 @@ for (prefix,url) in PREFIX_URL_LIST:
     url_harvest_counts[source_name]['Ignored']  = {}
     
     parse_json(prefix, datajson_dict, dest_str)
+    print("======(parse_json(prefix="+prefix+", datajson_dict"+str(len(datajson_dict))+", dest_str))")
     
     if not aggregate_source_dict:
-        aggregate_source_dict = dict(aggregate_source_dict)   # 1st value
+        aggregate_source_dict = dict(datajson_dict)   # 1st value
     else:
         aggregate_source_dict = aggregate_source_dict.update(datajson_dict)
     
@@ -318,7 +353,7 @@ for key, value in url_harvest_counts.items():
 url_results_columns = ['Data_Source', 'Total',  'Found',  'Not_Found',  'Ignored']
 df_url_harvest_counts = pd.DataFrame(data=url_results, columns=url_results_columns)
 print(df_url_harvest_counts)
-df_url_harvest_counts.to_csv('df_url_harvest_counts.csv', sep='\t')
+df_url_harvest_counts.to_csv('url_harvest_counts.csv', sep='\t')
 
 
 
@@ -336,6 +371,25 @@ parse_json(
     , hdgov_datajson_dict
     , aggregate_source_str
     )
+
+data_source    = 'healthdata.gov_only'
+search_results = url_harvest_counts[data_source]
+num_found     = len(search_results['Found'])
+num_not_found = len(search_results['NotFound'])
+num_ignored   = len(search_results['Ignored'])
+num_total     = num_found + num_not_found # + num_ignored
+url_results.append({ "Data_Source": data_source
+                    ,"Total"      : num_found + num_not_found
+                    ,"Found"      : num_found
+                    ,"Not_Found"  : num_not_found
+                    ,"Ignored"    : num_ignored
+                   })
+'''
+
+
+
+
+
 data_dest      = 'HealthData.gov'
 data_source    = 'federated_sources'
 search_results = url_harvest_counts[data_source]
@@ -344,16 +398,32 @@ num_not_found = len(search_results['NotFound'])
 num_ignored   = len(search_results['Ignored'])
 num_total     = num_found + num_not_found # + num_ignored
 
+'''
 print("\n\n" + str(num_not_found)  + " of the " + str(num_total) + " dataset links in " + data_dest + " are not found on upstream sources")
+'''
+Example:
+    {'Data_Source': 'healthdata.gov_only',
+      'Found': 1350,
+      'Ignored': 8,
+      'Not_Found': 1858,
+      'Total': 3208}
+
+==> 3208 total items in HD.gov.  Of these 1350 are in federated sources.  The rest 1858 are unique to HD.gov
+'''
 
 
+
+
+
+#=== Save dataframes for analytics
 
 df_url_counts = pd.DataFrame(data=url_counts).T.fillna(0)
-df_url_counts.to_csv('url_counts_by_source.csv', sep='\t')
+df_url_counts.index.name = 'url'
+df_url_counts.to_csv('url_counts_by_source.csv', sep='\t', encoding='utf-8')
 #print(df_url_counts)
 
 
-
 df_url_ignored = pd.DataFrame(data=url_ignored).T.fillna(0)
+df_url_counts.index.name = 'url'
 df_url_ignored.to_csv('url_ignored_by_source.csv', sep='\t')
 #print(df_url_ignored)

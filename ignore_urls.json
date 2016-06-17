@@ -16,6 +16,10 @@
       "reason": "Describes license"
     },
     {
+      "ignore_url": "http://opendatacommons.org/licenses/odbl/1.0/",
+      "reason": "Describes license"
+    },
+    {
       "ignore_url": "https://creativecommons.org/publicdomain/zero/1.0/",
       "reason": "Describes license"
     },
@@ -40,6 +44,10 @@
       "reason": "Describes datafile"
     },
     {
+      "ignore_url": "http://www.healthdata.gov/data.json",
+      "reason": "Describes datafile"
+    },
+    {
       "ignore_url": "https://open.fda.gov/data.json",
       "reason": "Describes datafile"
     },
@@ -56,11 +64,23 @@
       "reason": "Describes datafile"
     },
     {
+      "ignore_url": "hha.gov",
+      "reason": "Typo"
+    },
+    {
+      "ignore_url": "hhs.gov",
+      "reason": "Generic"
+    },
+    {
       "ignore_url": "http:\/\/cms.gov\/mmrr",
       "reason": "Program URL that appears in 1/4 of all dnav.cms.gov entries"
     },
     {
       "ignore_url": "http://cms.gov/mmrr",
+      "reason": "Program URL that appears in 1/4 of all dnav.cms.gov entries"
+    },
+    {
+      "ignore_url": "http://www.cms.gov/mmrr",
       "reason": "Program URL that appears in 1/4 of all dnav.cms.gov entries"
     }
 ]

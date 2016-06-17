@@ -53,7 +53,7 @@ def get_api_result(source_url):
 
 
 
-def parse_smw_results(rget_json):
+def parse_smw_results(rget_json, url_filter=None):
     
     rget_json_use_cases = copy.deepcopy(rget_json)  # Extract just the use case entries for saving
     ddod_smw_links      = []
@@ -95,11 +95,15 @@ def parse_smw_results(rget_json):
                 
         if curr_extlinks:
             for extlink_dict in curr_extlinks:
+                extlink_dict_str = extlink_dict.get('*','')   # '*' is actualy the key for some reason
+                if not extlink_dict_str: continue   # No url to add
+                if url_filter and extlink_dict_str.find(url_filter) < 0: continue  # Filter not found
+                    
                 ddod_smw_links.append(
                     { 'pageid':curr_pageid
                      ,'title':curr_title
                      ,'categories':clean_categories_str
-                     ,'extlinks':extlink_dict.get('*',None)
+                     ,'extlinks':extlink_dict_str
                     })
         else:
             ddod_smw_links.append(
@@ -192,10 +196,18 @@ def extract_counts_by_agency(ddod_smw_links):
         
 
 rget_json = get_api_result(smw_url)
-(ddod_smw_links, rget_json_use_cases) = parse_smw_results(rget_json)
+
+#: Just get the .gov URLs
+url_filter_dotgov  = '.gov'
+file_prefix_dotgov = PREFIX+"_gov_only_links"
+(ddod_smw_links, rget_json_use_cases) = parse_smw_results(rget_json, url_filter_dotgov)
 
 print("Loaded "+ str(len(ddod_smw_links)) +" records")
 
+ddod_smw_links_text = json.dumps(ddod_smw_links)
+save_datajson_to_new_file_name(ddod_smw_links_text, file_prefix_dotgov)
+
+# Save generic file with all fields
 datajson_text = json.dumps(rget_json_use_cases)
 save_datajson_to_new_file_name(datajson_text, PREFIX)
 
