@@ -26,7 +26,7 @@ smw_url  = SMW_BASE_URL + 'api.php?action=query'
 smw_url += '&generator=allpages'                 # Generator
 smw_url += '&prop=links|extlinks|categories'     # Properties to show
 smw_url += '&gaplimit=10000&ellimit=10000&cllimit=10000&pllimit=10000'  # Avoid limits by property type
-smw_url += '&format=json&gapfilter=nonredirects&continue='  # Format and paging
+smw_url += '&format=json&gapfilterredir=nonredirects&continue='  # Format and paging
 
 
 
@@ -35,6 +35,7 @@ PREFIX_URL_LIST = [
      ,('data.cdc.gov' ,'https://data.cdc.gov/data.json')
      ,('data.cms.gov' ,'http://data.cms.gov/data.json' )
      ,('dnav.cms.gov' ,'http://dnav.cms.gov/Service/DataNavService.svc/json')
+     ,('ddod.healthdata.gov',smw_url)
      #,('HealthData.gov','http://healthdata.gov/data.json')
      #,('Data.gov' ,    'http://data.gov/data.json')
      ]
@@ -126,12 +127,19 @@ def get_datajson_from_web(url):
 
 
 
-def save_datajson_to_file(datajson_text, file_path):
+def save_datajson_to_new_file_name(datajson_text, file_name_prefix, file_name_suffix='data.json'):
     
-    with open(file_path, 'w') as f:
-        f.write(datajson_text)
+    date_string = datetime.datetime.today().strftime('%Y-%m-%d')
+    
+    new_file_name =   TARGET_FOLDER    + "/"                  \
+                    + file_name_prefix + FILE_NAME_DELIMITER  \
+                    + date_string      + FILE_NAME_DELIMITER  \
+                    + file_name_suffix
+                
+    with open(new_file_name, 'w') as file:
+        file.write(datajson_text)
 
-    return True  # Success
+    return new_file_name
 
 
 
@@ -183,8 +191,7 @@ def get_datajson_dict(prefix, url):
         datajson_text = get_datajson_from_web(url)
 
         if datajson_text:
-            new_file_name = get_new_file_name(prefix)
-            save_datajson_to_file(datajson_text, new_file_name)
+            new_file_name = save_datajson_to_new_file_name(datajson_text, prefix)
             datajson_dict = json.loads(datajson_text)
             return datajson_dict  # From web
 
@@ -239,4 +246,3 @@ for key, value in url_counts.items():
     
 df = pd.DataFrame(data=url_results)
 print(df)
-    
