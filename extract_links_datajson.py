@@ -50,6 +50,77 @@ REXEX_URL += r"""+(?:\([^\s()]*?\([^\s()]+\)[^\s()]*?\)|\([^\s]+?\)|[^\s`!()\[\]
 REXEX_URL += r"""|(?:(?<!@)[a-z0-9]+(?:[.\-][a-z0-9]+)*[.](?:com|net|org|edu|gov|mil)\b/?(?!@)))"""
 
 
+
+# Links table generated 6/17/2016
+links_table = [   
+    # ("Source", "Value", "Target")
+    ("Harvested Sources", 558, "dnav.cms.gov"),
+    ("Harvested Sources", 951, "data.cms.gov"),
+    ("Harvested Sources", 1451, "data.cdc.gov"),
+    ("Harvested Sources", 139, "open.fda.gov"),
+    ("ddod.healthdata.gov", 18, "Healthdata.gov"),
+    ("dnav.cms.gov", 151, "Healthdata.gov"),
+    ("data.cms.gov", 2, "Healthdata.gov"),
+    ("data.cdc.gov", 1100, "Healthdata.gov"),
+    ("open.fda.gov", 84, "Healthdata.gov"),
+    ("Other Sources", 1855, "Healthdata.gov"),
+    ("ddod.healthdata.gov", 144, "Inaccessible"),
+    ("dnav.cms.gov", 407, "Inaccessible"),
+    ("data.cms.gov", 949, "Inaccessible"),
+    ("data.cdc.gov", 351, "Inaccessible"),
+    ("open.fda.gov", 55, "Inaccessible"),
+    ("ddod.healthdata.gov", 0, "Ignored"),
+    ("dnav.cms.gov", 4, "Ignored"),
+    ("data.cms.gov", 5, "Ignored"),
+    ("data.cdc.gov", 6, "Ignored"),
+    ("open.fda.gov", 1, "Ignored"),
+    ("Healthdata.gov", 8, "Ignored")
+     ]
+
+
+
+
+def convert_links_table_to_stankey_dict(links_table):
+    node_dict  = {}
+    node_list  = []
+    links_list = []
+    dataset    = {}
+
+    source_node_list = [row[0] for row in links_table]
+    target_node_list = [row[2] for row in links_table]
+    unique_node_set  = set(source_node_list + target_node_list)
+
+    for (node_id, node_name) in enumerate(unique_node_set):
+        node_dict[node_name] = node_id
+        node_list.append({
+                 'id'  : node_id
+                ,'name': node_name
+            })
+
+    for (node_id, node_name) in enumerate(unique_node_set):
+        node_dict[node_id] = node_name
+        node_list.append({
+                 'id'  : node_id
+                ,'name': node_name
+            })
+
+    for (source_name, value, target_name) in links_table:
+        links_list.append({
+                 "source": node_dict[source_name]
+                ,"target": node_dict[target_name]
+                ,"value" : value           
+            })        
+
+    dataset['nodes'] = node_list
+    dataset['links'] = links_list
+    
+    return dataset
+
+    
+
+
+
+
 def extract_clean_url_list(target_str):
     
     url_list = re.findall(REXEX_URL, target_str)
@@ -202,15 +273,11 @@ def save_datajson_to_new_file_name(datajson_text, file_name_prefix, file_name_su
 def get_datajson_from_file(file_path):
     
     with open(file_path,encoding="ISO-8859-1") as file:
-        datajson_text = json.load(file)
+        datajson_load = json.load(file)
         
     #: Make sure it's a dictionary
-    if not type(datajson_text) is dict:
-        new_dict = {}
-        new_dict[file_path] = datajson_text
-        datajson_dict = new_dict
-    else:
-        datajson_dict       = datajson_text
+    datajson_dict = {}
+    datajson_dict[file_path] = datajson_load
 
     return datajson_dict  # Success
 
@@ -258,8 +325,12 @@ def get_datajson_dict(prefix, url):
         if datajson_text:
             datajson_text = clean_up_datajson(datajson_text)
             new_file_name = save_datajson_to_new_file_name(datajson_text, prefix)
-            datajson_dict = json.loads(datajson_text)
-            print("1. type(datajson_dict): "+str(type(datajson_dict)))
+            datajson_loads = json.loads(datajson_text)
+                
+            # Ensure this is a dict
+            datajson_dict = {}
+            new_file_name[new_file_name] = datajson_loads
+            
             return datajson_dict  # From web
 
         
@@ -268,10 +339,9 @@ def get_datajson_dict(prefix, url):
         return False
 
     #=== Otherwise use a file
-    datajson_dict = get_datajson_from_file(file_name)
-    print("2. type(datajson_dict): "+str(type(datajson_dict)))
+    datajson_dict = get_datajson_from_file(file_name)  # Guarantees dict
     datajson_dict = clean_up_datajson(datajson_dict)
-    print("3. type(datajson_dict): "+str(type(datajson_dict)))
+    
     return datajson_dict  # From file
     
 
@@ -312,7 +382,6 @@ for (prefix,url) in PREFIX_URL_LIST:
     url_harvest_counts[source_name]['Ignored']  = {}
     
     parse_json(prefix, datajson_dict, dest_str)
-    print("======(parse_json(prefix="+prefix+", datajson_dict"+str(len(datajson_dict))+", dest_str))")
     
     if not aggregate_source_dict:
         aggregate_source_dict = dict(datajson_dict)   # 1st value
@@ -427,3 +496,7 @@ df_url_ignored = pd.DataFrame(data=url_ignored).T.fillna(0)
 df_url_counts.index.name = 'url'
 df_url_ignored.to_csv('url_ignored_by_source.csv', sep='\t')
 #print(df_url_ignored)
+
+
+dataset = convert_links_table_to_stankey_dict(links_table)
+
