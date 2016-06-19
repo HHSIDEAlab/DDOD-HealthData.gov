@@ -80,7 +80,7 @@ links_table = [
 
 
 
-def convert_links_table_to_stankey_dict(links_table):
+def convert_links_table_to_sankey_dict(links_table):
     node_dict  = {}
     node_list  = []
     links_list = []
@@ -498,5 +498,6 @@ df_url_ignored.to_csv('url_ignored_by_source.csv', sep='\t')
 #print(df_url_ignored)
 
 
-dataset = convert_links_table_to_stankey_dict(links_table)
+dataset = convert_links_table_to_sankey_dict(links_table)
 
+print("Done")
