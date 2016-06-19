@@ -84,7 +84,7 @@ def convert_links_table_to_stankey_dict(links_table):
     node_dict  = {}
     node_list  = []
     links_list = []
-    dataset    = {}
+    dataset    = {}   # Use double quotes for javascript
 
     source_node_list = [row[0] for row in links_table]
     target_node_list = [row[2] for row in links_table]
@@ -93,15 +93,15 @@ def convert_links_table_to_stankey_dict(links_table):
     for (node_id, node_name) in enumerate(unique_node_set):
         node_dict[node_name] = node_id
         node_list.append({
-                 'id'  : node_id
-                ,'name': node_name
+                 "id"  : node_id
+                ,"name": node_name
             })
 
     for (node_id, node_name) in enumerate(unique_node_set):
         node_dict[node_id] = node_name
         node_list.append({
-                 'id'  : node_id
-                ,'name': node_name
+                 "id"  : node_id
+                ,"name": node_name
             })
 
     for (source_name, value, target_name) in links_table:
@@ -111,8 +111,8 @@ def convert_links_table_to_stankey_dict(links_table):
                 ,"value" : value           
             })        
 
-    dataset['nodes'] = node_list
-    dataset['links'] = links_list
+    dataset["nodes"] = node_list
+    dataset["links"] = links_list
     
     return dataset
 
