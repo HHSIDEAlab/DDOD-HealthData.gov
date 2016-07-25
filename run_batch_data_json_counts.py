@@ -7,10 +7,11 @@ TEMPLATE_PATH = os.path.abspath('templates/')+'/'
 TEMPLATE_NAME = 'dataset_count_by_source.html'
 
 def save_data():
-    env = jinja2.Environment(loader=jinja2.FileSystemLoader(TEMPLATE_PATH))
-    template = env.get_template(TEMPLATE_NAME)
-    csv_data = data_json_counts.update_csv_from_snapshots()
-    rendered_html = template.render(csv_data=csv_data)
+    env           = jinja2.Environment(loader=jinja2.FileSystemLoader(TEMPLATE_PATH))
+    template      = env.get_template(TEMPLATE_NAME)
+    csv_data      = data_json_counts.update_csv_from_snapshots()
+    report_urls   = data_json_counts.build_diff_report_urls(csv_data)
+    rendered_html = template.render(csv_data=csv_data, report_urls=report_urls)
 
     print( "Saving HTML file (size: "+str(len(rendered_html))+" bytes)..."+RENDERED_PATH+TEMPLATE_NAME)
     with open(RENDERED_PATH+TEMPLATE_NAME, "w") as text_file:
