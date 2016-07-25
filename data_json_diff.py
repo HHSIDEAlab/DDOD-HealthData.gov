@@ -179,6 +179,17 @@ def get_comparison_diffs(dataset_list_before, dataset_list_after):
         check_key = dataset_before['identifier']
 
         if check_key in json_compare_dict:
+            
+            #: Sometimes there are duplicate keys
+            if not "After" in json_compare_dict[check_key]:
+                print("\nDebug: json_compare_dict[check_key]---")
+                compare_status = "Duplicate_key"
+                duplicate_key = compare_status + "_" + check_key
+                print(json_compare_dict[check_key])
+                json_compare_dict[duplicate_key] = {
+                                                'Status'     : compare_status
+                                               }
+                continue
 
             # Not deleted, so check for differences
             dataset_after = json_compare_dict[check_key]['After']
@@ -237,13 +248,22 @@ def save_json_diff(comparison_diffs, file_start, file_end, file_format = 'json')
 # Returns result from two most recent dates
 def main(max_load=2):
     file_list      = get_file_list(max_load)
+    print("\n\nfile_list")
+    print(file_list)
     
     json_data_list = load_file_list(file_list)
     for i in range(max_load-1):
+        print("Sizes:")
+        print(len(json_data_list[i+1]), len(json_data_list[i]))
+                                        
         comparison_diffs = get_comparison_diffs(json_data_list[i+1], json_data_list[i])
+                                        
+        #print(len(comparison_diffs))
+                                        
         save_json_diff(        comparison_diffs,file_list     [i+1], file_list     [i], 'json')
         save_json_diff(        comparison_diffs,file_list     [i+1], file_list     [i], 'yaml')
-        
 
+        print("\n\nsave_json_diff(        comparison_diffs,file_list     [i+1], file_list     [i], 'json')")
+        print(str(i)+": "+file_list     [i+1]  + " ---" +  file_list     [i] + " ---" + 'json')
+        print("Done")
         
-    
