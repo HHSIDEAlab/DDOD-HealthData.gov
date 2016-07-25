@@ -387,12 +387,11 @@ def update_csv_from_snapshots():
 
     return csv_data
 
-    
- 
 
- def build_diff_report_urls(csv_from_snapshots):
+
+def build_diff_report_urls(csv_from_snapshots):   
     # example: http://peach.ddod.us/ddod_charts/difference_reports/dataset_diff_2016-06-19_2016-06-20.yaml
-
+    
     DIFF_REPORT_BASE = 'http://peach.ddod.us/ddod_charts/'  # Absolute URL
     DIFF_REPORT_BASE = ''  # Relative URL
     DIFF_REPORT_FOLDER = 'difference_reports/'
