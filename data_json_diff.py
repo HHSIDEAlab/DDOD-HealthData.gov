@@ -65,23 +65,31 @@ def load_file_list(file_list):
 
 
 
+KEYS_TO_IGNORE = ['temporal','modified']
 
-# recursively sort any lists it finds (and convert dictionaries
-# to lists of (key, value) pairs so that they're orderable):
+# Recursively sort any lists it finds (and convert dictionaries
+# to lists of (key, value) pairs so that they're orderable)
+# Remove values of keys that should be ignored
 def ordered_json(obj):
+    
     if isinstance(obj, dict):
-        return sorted((k, ordered_json(v)) for k, v in obj.items())
-    if isinstance(obj, list):
-        return sorted(ordered_json(x) for x in obj)
+        sort_tuples = []
+        for key, value in obj.items():
+            if key in KEYS_TO_IGNORE: value = ''  # Remove value of ignored keys
+            sort_tuples.append((key, ordered_json(value)))
+        return sorted(sort_tuples)
+    
+    elif isinstance(obj, list):
+        return sorted(ordered_json(item) for item in obj)
+    
     else:
         return obj
-
 
 
 #=== Check status counts between consecutive days ===
 # No longer needed, because get_comparison_diffs() includes this functionality
 '''
-Example output: {'Deleted': 0, 'Added': 33, 'No Change': 1501, 'Changed': 55}
+Example output: {'Deleted': 0, 'Added': 33, 'Identical': 1501, 'Changed': 55}
 '''
 def get_comparison_counts(json_compare_dict):
     totals = {}
@@ -120,7 +128,7 @@ def check_differences(dataset_before, dataset_after):
     
     # Must compare sorted versions of json struct
     if ordered_json(dataset_after) == ordered_json(dataset_before):
-        compare_status = "No Change"
+        compare_status = "Identical"
         udiff_output = ''
     else:
         compare_status = "Changed"
@@ -147,16 +155,29 @@ def check_differences(dataset_before, dataset_after):
 def get_comparison_diffs(dataset_list_before, dataset_list_after):
 
     json_compare_dict = {}
-    dataset_list_diff = {"Counts":{"Added":0, "Deleted":0, "Changed":0, "No Change":0},
+    dataset_list_diff = {"Counts":{"Added":0, "Deleted":0, "Changed":0, "Identical":0, "Duplicate":0},
                          "Diff":""}    
 
     
     #=== First load the "after" values ===
+    keys_after     = []
     for index_after, dataset_after in enumerate(dataset_list_after):
 
         if not 'identifier' in dataset_after: continue
 
         check_key = dataset_after['identifier']
+        
+        #: Handle errors of duplicates
+        if check_key in keys_after:
+            compare_status = "Duplicate"
+            json_compare_dict["Duplicate_"+check_key] = {
+                                            'Status' : "Duplicate",
+                                            'After'  : dataset_after,
+                                           }
+            dataset_list_diff["Counts"]["Duplicate"] += 1
+            print("DUPLICATE KEY ==> "+str(check_key))
+            continue   # Don't add duplicate key
+        keys_after.append(check_key)
 
         json_compare_dict[check_key] = {'Status'    : "Added",
                                         'After'     : dataset_after,
@@ -166,6 +187,7 @@ def get_comparison_diffs(dataset_list_before, dataset_list_after):
         
         
     #=== Second load the "before" values ===
+    keys_before     = []
     for index_before, dataset_before in enumerate(dataset_list_before):
 
         if debug: print_same_line(index_before)
@@ -178,18 +200,14 @@ def get_comparison_diffs(dataset_list_before, dataset_list_after):
 
         check_key = dataset_before['identifier']
 
+        
+        #: Handle errors of duplicates
+        if check_key in keys_before:
+            continue   # Don't do anything with duplicate key
+        keys_before.append(check_key)
+        
+        
         if check_key in json_compare_dict:
-            
-            #: Sometimes there are duplicate keys
-            if not "After" in json_compare_dict[check_key]:
-                print("\nDebug: json_compare_dict[check_key]---")
-                compare_status = "Duplicate_key"
-                duplicate_key = compare_status + "_" + check_key
-                print(json_compare_dict[check_key])
-                json_compare_dict[duplicate_key] = {
-                                                'Status'     : compare_status
-                                               }
-                continue
 
             # Not deleted, so check for differences
             dataset_after = json_compare_dict[check_key]['After']
@@ -199,7 +217,7 @@ def get_comparison_diffs(dataset_list_before, dataset_list_after):
             dataset_list_diff["Counts"]["Added"    ]    -= 1  # Reverses initial add for all records 
 
             #=== Write key entry to file only if there was a change === 
-            if   compare_status == "No Change":
+            if   compare_status == "Identical":
                 json_compare_dict.pop(check_key, None)   # Delete previously written key
             else:
                 # compare_status == "Changed"
