@@ -388,5 +388,38 @@ def update_csv_from_snapshots():
     return csv_data
 
     
-    
+ 
+
+ def build_diff_report_urls(csv_from_snapshots):
+    # example: http://peach.ddod.us/ddod_charts/difference_reports/dataset_diff_2016-06-19_2016-06-20.yaml
+
+    DIFF_REPORT_BASE = 'http://peach.ddod.us/ddod_charts/'  # Absolute URL
+    DIFF_REPORT_BASE = ''  # Relative URL
+    DIFF_REPORT_FOLDER = 'difference_reports/'
+    DIFF_REPORT_PREFIX = 'dataset_diff_'
+    DIFF_REPORT_SEPARATOR = '_'
+    DIFF_REPORT_EXTENSION = '.yaml'
+
+
+    snapshot_dates = []
+    for row in csv_data[1:]:
+        snapshot_dates.append(row[0])
+        #print(row[0])
+
+    diff_report_urls = []    
+    for i in range(len(snapshot_dates)-1):
+        diff_date_before = snapshot_dates[i]
+        diff_date_after  = snapshot_dates[i+1]
+        diff_report_url = DIFF_REPORT_BASE        \
+                        + DIFF_REPORT_FOLDER      \
+                        + DIFF_REPORT_PREFIX      \
+                        + diff_date_before        \
+                        + DIFF_REPORT_SEPARATOR   \
+                        + diff_date_after         \
+                        + DIFF_REPORT_EXTENSION
+
+        diff_report_urls.append(diff_report_url)
+        
+    return diff_report_urls
+   
     

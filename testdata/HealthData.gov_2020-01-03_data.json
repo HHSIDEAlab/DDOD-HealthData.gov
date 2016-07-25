@@ -95,6 +95,7 @@
                 "@type": "org:Organization",
                 "name": "Centers for Medicare &amp; Medicaid Services"
             },
+            "temporal": "2003-01-01T00:00:00-05:00/2014-12-31T00:00:00-05:00",
             "title": "Nursing Home Compare"
         },
         {
@@ -124,39 +125,6 @@
                 "name": "Centers for Medicare &amp; Medicaid Services"
             },
             "title": "National Provider Identifier Standard - Data Dissemination"
-        },
-        {
-            "@type": "dcat:Dataset",
-            "accessLevel": "public",
-            "bureauCode": [
-                "009:38"
-            ],
-            "contactPoint": {
-                "fn": "Health Data Initiative",
-                "hasEmail": "mailto:HealthData@hhs.gov"
-            },
-            "description": "<p>The CMS Wallet Card is a quick reference statistical summary on annual CMS program and financial data. The CMS Wallet Card is available for each year from 2004 through 2012.  The 2012 version is the last version of the Wallet Card.  Similar information is available in the CMS Fast Facts, a new quick reference and mobile enabled CMS information product with statistical summaries on CMS program and financial data.  The CMS Fast Facts is updated as new data become available.</p>\n",
-            "identifier": "250",
-            "keyword": [
-                "Federally Qualified Health Center (FQHC)",
-                "Home Health (HHA)",
-                "Long Term Care (LTC)",
-                "Short Stay Hospital (SSH)",
-                "Skilled Nursing (SNF)"
-            ],
-            "language": [
-                "en"
-            ],
-            "modified": "2016-01-06",
-            "programCode": [
-                "009:000"
-            ],
-            "publisher": {
-                "@type": "org:Organization",
-                "name": "Centers for Medicare &amp; Medicaid Services"
-            },
-            "temporal": "2004-01-01T00:00:00-05:00/2012-12-31T00:00:00-05:00",
-            "title": "CMS Wallet Card"
         },
         {
             "@type": "dcat:Dataset",
