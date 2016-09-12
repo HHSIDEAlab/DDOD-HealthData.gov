@@ -175,7 +175,6 @@ def get_comparison_diffs(dataset_list_before, dataset_list_after):
                                             'After'  : dataset_after,
                                            }
             dataset_list_diff["Counts"]["Duplicate"] += 1
-            print("DUPLICATE KEY ==> "+str(check_key))
             continue   # Don't add duplicate key
         keys_after.append(check_key)
 
