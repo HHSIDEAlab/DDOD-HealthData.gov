@@ -105,7 +105,7 @@ tornado==4.2.1
 traitlets==4.0.0
 ujson==1.33
 unicodecsv==0.14.1
-Werkzeug==0.11.2
+Werkzeug==0.15.3
 wheel==0.26.0
 xlrd==0.9.4
 XlsxWriter==0.7.7
