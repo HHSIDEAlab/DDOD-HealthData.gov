@@ -23,7 +23,7 @@ datashape==0.4.7
 decorator==4.0.4
 docutils==0.12
 fastcache==1.0.2
-Flask==0.10.1
+Flask==1.0
 greenlet==0.4.9
 h5py==2.5.0
 idna==2.0
